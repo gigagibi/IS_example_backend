@@ -4,9 +4,11 @@ import com.example.IS.models.Project;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
     //search by value
@@ -112,10 +114,10 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     // Delete
     void deleteAllByCustomer(String customer);
 
-    void deleteByProjectId(int projectId);
-
     void deleteByName(String name);
 
     // FK search
     Project findByUser(User user);
+
+    Project deleteByUser(User user);
 }

@@ -2,13 +2,15 @@ package com.example.IS.repositories;
 
 import com.example.IS.models.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 public interface PositionRepository extends JpaRepository<Position, Integer> {
-    Position findAllByName(String name);
+    Position findByName(String name);
 
-    Position findAllByGrade(int grade);
+    List<Position> findAllByGrade(int grade);
 
-    Position findAllByPositionId(int positionId);
+    Position findByPositionId(int positionId);
 }

@@ -4,9 +4,11 @@ import com.example.IS.models.Department;
 import com.example.IS.models.Position;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     // search by value

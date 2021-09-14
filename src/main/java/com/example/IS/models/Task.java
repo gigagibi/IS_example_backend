@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,6 +21,14 @@ public class Task {
     @GeneratedValue(generator = "task_seq", strategy =
             GenerationType.SEQUENCE)
     private int taskId;
+
+    @Size(max = 55, message = "Size should not be more than 55")
+    @Column(name = "name")
+    private String name;
+
+    @Size(max = 500, message = "Size should not be more than 500")
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "start_date")
     private Date startDate;

@@ -4,13 +4,16 @@ import com.example.IS.models.Project;
 import com.example.IS.models.Task;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
+
 public interface TaskRepository extends JpaRepository<Task, Integer> {
     // find by value
     Task findByTaskId(int taskId);
+
     List<Task> findAllByFinishDate(Date finishDate);
 
     List<Task> findAllByStartDate(Date startDate);
