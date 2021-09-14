@@ -4,7 +4,7 @@ import com.example.IS.models.Department;
 import com.example.IS.models.Position;
 import com.example.IS.models.User;
 import com.example.IS.repositories.UserRepository;
-import com.example.IS.service.UserService;
+import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> createUser(User user) {
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         return userRepository.findAll();
     }
 
@@ -35,14 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> updateUser(int userId, User user) {
-        if(userRepository.findByUserId(userId) != null) {
-            userRepository.save(user);
-            return userRepository.findAll();
-        }
-        else
-            return null;
+        userRepository.updatePosition(userId, user.getSurname(), user.getName(), user.getPatronym(), user.getHireDate(), user.getDismissalDate(), user.getEmail(), user.getPosition().getPositionId(), user.getDepartment().getDepartmentId());
+        return userRepository.findAll();
     }
-
 
 
     @Override
@@ -151,5 +146,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllByPosition(Position position) {
         return userRepository.findAllByPosition(position);
+    }
+
+    @Override
+    public List<User> deleteAll() {
+        return null;
     }
 }

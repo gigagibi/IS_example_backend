@@ -1,8 +1,11 @@
 package com.example.IS.repositories;
 
+import com.example.IS.models.Department;
 import com.example.IS.models.TimeEntry;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
@@ -26,4 +29,8 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
     List<TimeEntry> findAllByEntryDateIsBefore(OffsetDateTime date);
 
     List<TimeEntry> findAllByEntryDateIsAfter(OffsetDateTime date);
+
+    @Modifying
+    @Query(value = "update time_entries set user_id = ?2, task_id = ?3, hours = ?4, entry_date = ?5 where entry_id = ?1", nativeQuery = true)
+    Department updateTimeEntry(int id, int userId, int taskId, int hours, OffsetDateTime entryDate);
 }

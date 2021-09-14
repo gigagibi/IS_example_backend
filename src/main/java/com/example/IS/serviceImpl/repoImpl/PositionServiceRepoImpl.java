@@ -2,7 +2,7 @@ package com.example.IS.serviceImpl.repoImpl;
 
 import com.example.IS.models.Position;
 import com.example.IS.repositories.PositionRepository;
-import com.example.IS.service.PositionService;
+import com.example.IS.services.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PositionServiceImpl implements PositionService {
+public class PositionServiceRepoImpl implements PositionService {
     private final PositionRepository positionRepository;
     @Override
     public Position getById(int positionId) {
@@ -19,7 +19,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public List<Position> createPosition(Position position) {
-        positionRepository.save(position);
+        positionRepository.saveAndFlush(position);
         return positionRepository.findAll();
     }
 
@@ -31,12 +31,8 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public List<Position> updatePosition(int positionId, Position position) {
-        if(positionRepository.findByPositionId(positionId) != null) {
-            positionRepository.save(position);
-            return positionRepository.findAll();
-        }
-        else
-            return null;
+        positionRepository.updatePosition(positionId, position.getName(), position.getGrade());
+        return positionRepository.findAll();
     }
 
     @Override
@@ -52,5 +48,10 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public List<Position> getAllByGrade(int grade) {
         return positionRepository.findAllByGrade(grade);
+    }
+
+    @Override
+    public List<Position> deleteAll() {
+        return null;
     }
 }

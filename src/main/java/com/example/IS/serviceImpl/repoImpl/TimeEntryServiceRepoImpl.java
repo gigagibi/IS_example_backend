@@ -3,7 +3,7 @@ package com.example.IS.serviceImpl.repoImpl;
 import com.example.IS.models.TimeEntry;
 import com.example.IS.models.User;
 import com.example.IS.repositories.TimeEntryRepository;
-import com.example.IS.service.TimeEntryService;
+import com.example.IS.services.TimeEntryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TimeEntryServiceImpl implements TimeEntryService {
+public class TimeEntryServiceRepoImpl implements TimeEntryService {
     private final TimeEntryRepository timeEntryRepository;
 
     @Override
@@ -22,7 +22,7 @@ public class TimeEntryServiceImpl implements TimeEntryService {
 
     @Override
     public List<TimeEntry> createTimeEntry(TimeEntry timeEntry) {
-        timeEntryRepository.save(timeEntry);
+        timeEntryRepository.saveAndFlush(timeEntry);
         return timeEntryRepository.findAll();
     }
 
@@ -34,6 +34,7 @@ public class TimeEntryServiceImpl implements TimeEntryService {
 
     @Override
     public List<TimeEntry> updateTimeEntry(int timeEntryId, TimeEntry timeEntry) {
+        timeEntryRepository.updateTimeEntry(timeEntryId, timeEntry.getUser().getUserId(), timeEntry.getTask().getTaskId(), timeEntry.getHours(), timeEntry.getEntryDate());
         return timeEntryRepository.findAll();
     }
 
@@ -75,5 +76,10 @@ public class TimeEntryServiceImpl implements TimeEntryService {
     @Override
     public List<TimeEntry> getAllByEntryDateIsAfter(OffsetDateTime date) {
         return timeEntryRepository.findAllByEntryDateIsAfter(date);
+    }
+
+    @Override
+    public List<TimeEntry> deleteAll() {
+        return null;
     }
 }

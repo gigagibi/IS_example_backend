@@ -18,6 +18,7 @@ public class Position {
             "position_sequence", allocationSize = 1)
     @GeneratedValue(generator = "position_seq", strategy =
             GenerationType.SEQUENCE)
+    @Column(name = "pos_id")
     private int positionId;
 
     @Column(name = "name")

@@ -1,11 +1,9 @@
-package com.example.IS.service;
+package com.example.IS.services;
 
 import com.example.IS.models.Department;
 import com.example.IS.models.Position;
+import com.example.IS.models.TimeEntry;
 import com.example.IS.models.User;
-import com.example.IS.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -62,5 +60,7 @@ public interface UserService {
      List<User> getAllByDepartment(Department department);
 
      List<User> getAllByPosition (Position position);
+
+     List<User> deleteAll();
 }
 

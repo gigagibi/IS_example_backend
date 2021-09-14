@@ -16,6 +16,7 @@ public class Department {
     @Id
     @SequenceGenerator(name = "department_seq", sequenceName = "department_sequence", allocationSize = 1)
     @GeneratedValue(generator = "department_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "department_id")
     private int departmentId;
 
     @Column(name = "name")

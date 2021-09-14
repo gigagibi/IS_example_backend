@@ -20,6 +20,7 @@ public class Task {
             "task_sequence", allocationSize = 1)
     @GeneratedValue(generator = "task_seq", strategy =
             GenerationType.SEQUENCE)
+    @Column(name = "task_id")
     private int taskId;
 
     @Size(max = 55, message = "Size should not be more than 55")

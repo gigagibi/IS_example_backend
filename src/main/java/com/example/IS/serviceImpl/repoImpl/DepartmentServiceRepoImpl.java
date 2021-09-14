@@ -3,15 +3,17 @@ package com.example.IS.serviceImpl.repoImpl;
 import com.example.IS.models.Department;
 import com.example.IS.models.Office;
 import com.example.IS.repositories.DepartmentRepository;
-import com.example.IS.service.DepartmentService;
+import com.example.IS.services.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentServiceImpl implements DepartmentService {
+@Transactional
+public class DepartmentServiceRepoImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     @Override
@@ -21,7 +23,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Department> createDepartment(Department department) {
-        departmentRepository.save(department);
+        departmentRepository.saveAndFlush(department);
         return departmentRepository.findAll();
     }
 
@@ -33,12 +35,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Department> updateDepartment(int departmentId, Department department) {
-        if(departmentRepository.findByDepartmentId(departmentId) != null) {
-            departmentRepository.save(department);
-            return departmentRepository.findAll();
-        }
-        else
-            return null;
+        departmentRepository.updateDepartment(departmentId, department.getName(), department.getOffice().getOfficeId());
+        return departmentRepository.findAll();
     }
 
     @Override
@@ -54,5 +52,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> getAllByOffice(Office office) {
         return departmentRepository.findAllByOffice(office);
+    }
+
+    @Override
+    public List<Department> deleteAll() {
+        departmentRepository.deleteAll();
+        return departmentRepository.findAll();
     }
 }

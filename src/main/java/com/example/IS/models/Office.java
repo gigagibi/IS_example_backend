@@ -18,6 +18,7 @@ public class Office {
             "office_sequence", allocationSize = 1)
     @GeneratedValue(generator = "office_seq", strategy =
             GenerationType.SEQUENCE)
+    @Column(name = "office_id")
     private int officeId;
 
     @Column(name = "address")

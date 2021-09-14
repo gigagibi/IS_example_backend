@@ -1,8 +1,10 @@
 package com.example.IS.repositories;
 
+import com.example.IS.models.Department;
 import com.example.IS.models.Project;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -119,5 +121,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     // FK search
     Project findByUser(User user);
 
-    Project deleteByUser(User user);
+    void deleteByUser(User user);
+
+    @Modifying
+    @Query(value = "update projects set name = ?2, description = ?3, customer = ?4, planned_start_date = ?5, fact_start_date = ?6, planned_finish_date = ?7, fact_finish_date = ?8, planned_cost = ?9, fact_cost = ?10, planned_profit = ?11, fact_profit = ?12, user_id = ?13 where project_id = ?1", nativeQuery = true)
+    Department updateProject(int id, String name, String description, String customer, Date plannedStartDate, Date factStartDate, Date plannedFinishDate, Date factFinishDate, int plannedCost, int factCost, int plannedProfit, int factProfit, int userId);
 }

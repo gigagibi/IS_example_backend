@@ -2,18 +2,17 @@ package com.example.IS.serviceImpl.repoImpl;
 
 import com.example.IS.models.Office;
 import com.example.IS.repositories.OfficeRepository;
-import com.example.IS.repositories.UserRepository;
-import com.example.IS.service.OfficeService;
-import lombok.AllArgsConstructor;
+import com.example.IS.services.OfficeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OfficeServiceImpl implements OfficeService {
+@Transactional
+public class OfficeServiceRepoImpl implements OfficeService {
     private final OfficeRepository officeRepository;
 
     @Override
@@ -23,7 +22,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<Office> createOffice(Office office) {
-        officeRepository.save(office);
+        officeRepository.saveAndFlush(office);
         return officeRepository.findAll();
     }
 
@@ -35,12 +34,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<Office> updateOffice(int officeId, Office office) {
-        if(officeRepository.findByOfficeId(officeId) != null) {
-            officeRepository.save(office);
-            return officeRepository.findAll();
-        }
-        else
-            return null;
+        officeRepository.updateOffice(officeId, office.getAddress());
+        officeRepository.flush();
+        return officeRepository.findAll();
     }
 
     @Override
@@ -57,5 +53,11 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public Office getOfficeByAddress(String address) {
         return officeRepository.findByAddress(address);
+    }
+
+    @Override
+    public List<Office> deleteAll() {
+        officeRepository.deleteAll();
+        return officeRepository.findAll();
     }
 }

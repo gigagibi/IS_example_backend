@@ -19,6 +19,7 @@ public class Project {
             "project_sequence", allocationSize = 1)
     @GeneratedValue(generator = "project_seq", strategy =
             GenerationType.SEQUENCE)
+    @Column(name = "project_id")
     private int projectId;
 
     @Column(name = "name")

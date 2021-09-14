@@ -4,6 +4,8 @@ import com.example.IS.models.Department;
 import com.example.IS.models.Position;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -57,4 +59,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByDepartment(Department department);
 
     List<User> findAllByPosition (Position position);
+
+    @Modifying
+    @Query(value = "update users set surname = ?2, name = ?3, patronym = ?4, hire_date = ?5, dismissal_date = ?6, email = ?7, position_id = ?8, department_id = ?9 where user_id= ?1", nativeQuery = true)
+    Department updatePosition(int id, String surname, String name, String patronym, Date hire_date, Date dismissal_date, String email, int positionId, int departmentId);
 }

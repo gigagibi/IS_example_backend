@@ -3,7 +3,7 @@ package com.example.IS.serviceImpl.repoImpl;
 import com.example.IS.models.Project;
 import com.example.IS.models.User;
 import com.example.IS.repositories.ProjectRepository;
-import com.example.IS.service.ProjectService;
+import com.example.IS.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,280 +12,291 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceRepoImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     @Override
     public Project getById(int projectId) {
-        return null;
+        return projectRepository.findByProjectId(projectId);
     }
 
     @Override
-    public List<Project> createProject(Project Project) {
-        return null;
+    public List<Project> createProject(Project project) {
+        projectRepository.saveAndFlush(project);
+        return projectRepository.findAll();
     }
 
     @Override
     public List<Project> deleteProject(int projectId) {
-        return null;
+        projectRepository.deleteById(projectId);
+        return projectRepository.findAll();
     }
 
     @Override
     public List<Project> updateProject(int projectId, Project project) {
-        return null;
+        projectRepository.updateProject(projectId, project.getName(), project.getDescription(), project.getCustomer(), project.getPlannedStartDate(), project.getFactStartDate(), project.getPlannedFinishDate(), project.getFactFinishDate(), project.getPlannedCost(), project.getFactCost(), project.getPlannedProfit(), project.getFactProfit(), project.getUser().getUserId());
+        return projectRepository.findAll();
     }
 
     @Override
     public List<Project> getAll() {
-        return null;
+        return projectRepository.findAll();
     }
 
     @Override
-    public Project getByName(String name) {
-        return null;
+    public List<Project> getByName(String name) {
+        return projectRepository.findAllByName(name);
     }
 
     @Override
     public List<Project> getAllByCustomer(String customer) {
-        return null;
+        return projectRepository.findAllByCustomer(customer);
     }
 
     @Override
     public List<Project> getAllByFactCost(int factCost) {
-        return null;
+        return projectRepository.findAllByFactCost(factCost);
     }
 
     @Override
-    public List<Project> getAllByFactProfit(int factCost) {
-        return null;
+    public List<Project> getAllByFactProfit(int factProfit) {
+        return projectRepository.findAllByFactProfit(factProfit);
     }
 
     @Override
-    public List<Project> getAllByPlannedCost(int factCost) {
-        return null;
+    public List<Project> getAllByPlannedCost(int plannedCost) {
+        return projectRepository.findAllByPlannedCost(plannedCost);
     }
 
     @Override
-    public List<Project> getAllByPlannedProfit(int factCost) {
-        return null;
+    public List<Project> getAllByPlannedProfit(int plannedProfit) {
+        return projectRepository.findAllByPlannedProfit(plannedProfit);
     }
 
     @Override
     public List<Project> getAllByFactCostIsBetween(int min, int max) {
-        return null;
+        return projectRepository.findAllByFactCostIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByPlannedCostIsBetween(int min, int max) {
-        return null;
+        return projectRepository.findAllByPlannedCostIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByFactProfitIsBetween(int min, int max) {
-        return null;
+        return projectRepository.findAllByFactProfitIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByPlannedProfitIsBetween(int min, int max) {
-        return null;
+        return projectRepository.findAllByPlannedProfitIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByPlannedStartDateIsBetween(Date min, Date max) {
-        return null;
+        return projectRepository.findAllByPlannedStartDateIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByFactStartDateIsBetween(Date min, Date max) {
-        return null;
+        return projectRepository.findAllByFactStartDateIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByPlannedFinishDateIsBetween(Date min, Date max) {
-        return null;
+        return projectRepository.findAllByPlannedFinishDateIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByFactFinishDateIsBetween(Date min, Date max) {
-        return null;
+        return projectRepository.findAllByFactFinishDateIsBetween(min, max);
     }
 
     @Override
     public List<Project> getAllByFactCostGreaterThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByFactCostGreaterThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedCostGreaterThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByPlannedCostGreaterThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByFactProfitGreaterThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByFactProfitGreaterThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedProfitGreaterThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByPlannedProfitGreaterThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedStartDateIsAfter(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedStartDateIsAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactStartDateIsAfter(Date value) {
-        return null;
+        return projectRepository.findAllByFactStartDateIsAfter(value);
     }
 
     @Override
     public List<Project> getAllByPlannedFinishDateIsAfter(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedFinishDateIsAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactFinishDateIsAfter(Date value) {
-        return null;
+        return projectRepository.findAllByFactFinishDateIsAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactCostGreaterThan(int value) {
-        return null;
+        return projectRepository.findAllByFactCostGreaterThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedCostGreaterThan(int value) {
-        return null;
+        return projectRepository.findAllByPlannedCostGreaterThan(value);
     }
 
     @Override
     public List<Project> getAllByFactProfitGreaterThan(int value) {
-        return null;
+        return projectRepository.findAllByFactProfitGreaterThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedProfitGreaterThan(int value) {
-        return null;
+        return projectRepository.findAllByPlannedProfitGreaterThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedStartDateAfter(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedStartDateAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactStartDateAfter(Date value) {
-        return null;
+        return projectRepository.findAllByFactStartDateAfter(value);
     }
 
     @Override
     public List<Project> getAllByPlannedFinishDateAfter(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedFinishDateAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactFinishDateAfter(Date value) {
-        return null;
+        return projectRepository.findAllByFactFinishDateAfter(value);
     }
 
     @Override
     public List<Project> getAllByFactCostLessThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByFactCostLessThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedCostLessThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByPlannedCostLessThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByFactProfitLessThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByFactProfitLessThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedProfitLessThanEqual(int value) {
-        return null;
+        return projectRepository.findAllByPlannedProfitLessThanEqual(value);
     }
 
     @Override
     public List<Project> getAllByPlannedStartDateIsBefore(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedStartDateIsBefore(value);
     }
 
     @Override
     public List<Project> getAllByFactStartDateIsBefore(Date value) {
-        return null;
+        return projectRepository.findAllByFactStartDateIsBefore(value);
     }
 
     @Override
     public List<Project> getAllByPlannedFinishDateIsBefore(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedFinishDateIsBefore(value);
     }
 
     @Override
     public List<Project> getAllByFactFinishDateIsBefore(Date value) {
-        return null;
+        return projectRepository.findAllByFactFinishDateIsBefore(value);
     }
 
     @Override
     public List<Project> getAllByFactCostLessThan(int value) {
-        return null;
+        return projectRepository.findAllByFactCostLessThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedCostLessThan(int value) {
-        return null;
+        return projectRepository.findAllByPlannedCostLessThan(value);
     }
 
     @Override
     public List<Project> getAllByFactProfitLessThan(int value) {
-        return null;
+        return projectRepository.findAllByFactProfitLessThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedProfitLessThan(int value) {
-        return null;
+        return projectRepository.findAllByPlannedProfitLessThan(value);
     }
 
     @Override
     public List<Project> getAllByPlannedStartDateBefore(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedStartDateBefore(value);
     }
 
     @Override
     public List<Project> getAllByFactStartDateBefore(Date value) {
-        return null;
+        return projectRepository.findAllByFactStartDateBefore(value);
     }
 
     @Override
     public List<Project> getAllByPlannedFinishDateBefore(Date value) {
-        return null;
+        return projectRepository.findAllByPlannedFinishDateBefore(value);
     }
 
     @Override
     public List<Project> getAllByFactFinishDateBefore(Date value) {
-        return null;
+        return projectRepository.findAllByFactFinishDateBefore(value);
     }
 
     @Override
     public List<Project> deleteAllByCustomer(String customer) {
-        return null;
+        projectRepository.deleteAllByCustomer(customer);
+        return projectRepository.findAll();
     }
 
     @Override
     public List<Project> deleteByName(String name) {
-        return null;
+        projectRepository.deleteByName(name);
+        return projectRepository.findAll();
     }
 
     @Override
     public Project getByProjectManager(User user) {
-        return null;
+        return projectRepository.findByUser(user);
     }
 
     @Override
     public List<Project> deleteByProjectManager(User user) {
+        projectRepository.deleteByUser(user);
+        return projectRepository.findAll();
+    }
+
+    @Override
+    public List<Project> deleteAll() {
         return null;
     }
 }

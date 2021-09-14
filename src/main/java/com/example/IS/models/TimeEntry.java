@@ -20,6 +20,7 @@ public class TimeEntry {
             "time_entry_sequence", allocationSize = 1)
     @GeneratedValue(generator = "time_entry_seq", strategy =
             GenerationType.SEQUENCE)
+    @Column(name = "entry_id")
     private int timeEntryId;
 
     @Column(name = "hours")

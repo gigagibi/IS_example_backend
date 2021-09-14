@@ -1,4 +1,4 @@
-package com.example.IS.service;
+package com.example.IS.services;
 
 import com.example.IS.models.Project;
 import com.example.IS.models.Task;
@@ -8,17 +8,17 @@ import java.util.Date;
 import java.util.List;
 
 public interface TaskService {
-    public Project getById(int projectId);
+    Task getById(int taskId);
 
-    public List<Project> createProject(Project Project);
+    List<Task> createTask(Task task);
 
-    public List<Project> deleteProject(int projectId);
+    List<Task> deleteTask(int taskId);
 
-    public List<Project> updateProject(int projectId, Project project);
+    List<Task> updateTask(int taskId, Task task);
 
-    public List<Project> getAll();
+    List<Task> getAll();
 
-    public Project getByName(String name);
+    List<Task> getByName(String name);
 
     List<Task> getAllByFinishDate(Date finishDate);
 
@@ -45,6 +45,8 @@ public interface TaskService {
 
     List<Task> getAllByFinishDateIsAfter(Date value);
 
+    List<Task> deleteAll();
+    
     // FK search
     List<Task> getAllByUser(User user);
 
