@@ -39,7 +39,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     public Department department;
 
