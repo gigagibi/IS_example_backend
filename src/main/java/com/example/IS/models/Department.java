@@ -23,7 +23,7 @@ public class Department {
     @Size(max = 55, message = "Size should not be more than 55 symbols")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "office_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "office_id", referencedColumnName = "office_id")
     public Office office;
 }

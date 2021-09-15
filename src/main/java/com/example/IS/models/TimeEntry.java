@@ -29,11 +29,11 @@ public class TimeEntry {
     @Column(name = "entry_date")
     private OffsetDateTime entryDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     public User user;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "task_id", referencedColumnName = "task_id")
     public Task task;
 }
