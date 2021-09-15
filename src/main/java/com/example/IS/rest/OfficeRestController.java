@@ -15,7 +15,7 @@ public class OfficeRestController {
     private final OfficeServiceRepoImpl officeService;
 
     @GetMapping("/")
-    public List<Office> getAllOffices() {
+    public List<Office> getOffices() {
         return officeService.getAll();
     }
 
@@ -30,7 +30,7 @@ public class OfficeRestController {
     }
 
     @DeleteMapping("/")
-    public List<Office> deleteAllOffices() {
+    public List<Office> deleteOffices() {
         return officeService.deleteAll();
     }
 

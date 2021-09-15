@@ -40,10 +40,10 @@ public class User {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     public Department department;
 
     @ManyToOne
-    @JoinColumn(name = "position_id")
+    @JoinColumn(name = "position_id", referencedColumnName = "pos_id")
     public Position position;
 }

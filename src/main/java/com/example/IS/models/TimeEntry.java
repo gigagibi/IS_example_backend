@@ -30,10 +30,10 @@ public class TimeEntry {
     private OffsetDateTime entryDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     public User user;
 
     @ManyToOne
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "task_id", referencedColumnName = "task_id")
     public Task task;
 }

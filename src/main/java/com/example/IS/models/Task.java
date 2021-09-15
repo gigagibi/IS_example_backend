@@ -38,10 +38,10 @@ public class Task {
     private Date finishDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     public User user;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     public Project project;
 }
