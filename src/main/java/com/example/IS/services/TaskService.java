@@ -10,11 +10,11 @@ import java.util.List;
 public interface TaskService {
     Task getById(int taskId);
 
-    List<Task> createTask(Task task);
+    List<Task> create(Task task);
 
-    List<Task> deleteTask(int taskId);
+    List<Task> delete(int taskId);
 
-    List<Task> updateTask(int taskId, Task task);
+    List<Task> update(int taskId, Task task);
 
     List<Task> getAll();
 
@@ -51,4 +51,8 @@ public interface TaskService {
     List<Task> getAllByUser(User user);
 
     List<Task> getAllByProject(Project project);
+
+    List<Task> getAllByUserId(int userId);
+
+    List<Task> getAllByProjectId(int projectId);
 }

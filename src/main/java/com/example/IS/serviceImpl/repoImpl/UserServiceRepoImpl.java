@@ -8,11 +8,13 @@ import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
 
@@ -22,19 +24,19 @@ public class UserServiceRepoImpl implements UserService {
     }
 
     @Override
-    public List<User> createUser(User user) {
+    public List<User> create(User user) {
         userRepository.saveAndFlush(user);
         return userRepository.findAll();
     }
 
     @Override
-    public List<User> deleteUser(int userId) {
+    public List<User> delete(int userId) {
         userRepository.deleteById(userId);
         return userRepository.findAll();
     }
 
     @Override
-    public List<User> updateUser(int userId, User user) {
+    public List<User> update(int userId, User user) {
         userRepository.updatePosition(userId, user.getSurname(), user.getName(), user.getPatronym(), user.getHireDate(), user.getDismissalDate(), user.getEmail(), user.getPosition().getPositionId(), user.getDepartment().getDepartmentId());
         return userRepository.findAll();
     }

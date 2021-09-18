@@ -7,7 +7,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
@@ -44,4 +43,8 @@ public class Task {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     public Project project;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "task_type_id", referencedColumnName = "task_type_id")
+    public TaskType taskType;
 }

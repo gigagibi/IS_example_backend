@@ -1,6 +1,7 @@
 package com.example.IS.services;
 
 import com.example.IS.models.Department;
+import com.example.IS.models.Task;
 import com.example.IS.models.TimeEntry;
 import com.example.IS.models.User;
 
@@ -10,19 +11,15 @@ import java.util.List;
 public interface TimeEntryService {
     TimeEntry getById(int timeEntryId);
 
-    List<TimeEntry> createTimeEntry(TimeEntry TimeEntry);
+    List<TimeEntry> create(TimeEntry TimeEntry);
 
-    List<TimeEntry> deleteTimeEntry(int timeEntryId);
+    List<TimeEntry> delete(int timeEntryId);
 
-    List<TimeEntry> updateTimeEntry(int timeEntryId, TimeEntry timeEntry);
+    List<TimeEntry> update(int timeEntryId, TimeEntry timeEntry);
 
     List<TimeEntry> getAll();
 
     List<TimeEntry> getAllByEntryDate(OffsetDateTime date);
-
-    List<TimeEntry> getAllByUser(User user);
-
-    List<TimeEntry> getAllByUserAndEntryDateBetween(User user, OffsetDateTime min, OffsetDateTime max);
 
     List<TimeEntry> getAllByEntryDateAfter(OffsetDateTime date);
 
@@ -33,4 +30,6 @@ public interface TimeEntryService {
     List<TimeEntry> getAllByEntryDateIsAfter(OffsetDateTime date);
 
     List<TimeEntry> deleteAll();
+
+    List<TimeEntry> getAllByTask(Task task);
 }

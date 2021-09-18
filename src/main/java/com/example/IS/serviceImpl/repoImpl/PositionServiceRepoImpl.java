@@ -2,35 +2,39 @@ package com.example.IS.serviceImpl.repoImpl;
 
 import com.example.IS.models.Position;
 import com.example.IS.repositories.PositionRepository;
+import com.example.IS.repositories.UserRepository;
 import com.example.IS.services.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PositionServiceRepoImpl implements PositionService {
     private final PositionRepository positionRepository;
+    private final UserRepository userRepository;
     @Override
     public Position getById(int positionId) {
         return positionRepository.findByPositionId(positionId);
     }
 
     @Override
-    public List<Position> createPosition(Position position) {
+    public List<Position> create(Position position) {
         positionRepository.saveAndFlush(position);
         return positionRepository.findAll();
     }
 
     @Override
-    public List<Position> deletePosition(int positionId) {
+    public List<Position> delete(int positionId) {
         positionRepository.deleteById(positionId);
         return positionRepository.findAll();
     }
 
     @Override
-    public List<Position> updatePosition(int positionId, Position position) {
+    public List<Position> update(int positionId, Position position) {
         positionRepository.updatePosition(positionId, position.getName(), position.getGrade());
         return positionRepository.findAll();
     }
@@ -52,6 +56,12 @@ public class PositionServiceRepoImpl implements PositionService {
 
     @Override
     public List<Position> deleteAll() {
-        return null;
+        positionRepository.deleteAll();
+        return positionRepository.findAll();
+    }
+
+    @Override
+    public Position getByUserId(int userId) {
+        return userRepository.getById(userId).position;
     }
 }

@@ -1,39 +1,48 @@
 package com.example.IS.serviceImpl.repoImpl;
 
 import com.example.IS.models.Project;
+import com.example.IS.models.Task;
 import com.example.IS.models.User;
 import com.example.IS.repositories.ProjectRepository;
+import com.example.IS.repositories.TaskRepository;
+import com.example.IS.repositories.UserRepository;
 import com.example.IS.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProjectServiceRepoImpl implements ProjectService {
     private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
     @Override
     public Project getById(int projectId) {
         return projectRepository.findByProjectId(projectId);
     }
 
     @Override
-    public List<Project> createProject(Project project) {
+    public List<Project> create(Project project) {
         projectRepository.saveAndFlush(project);
         return projectRepository.findAll();
     }
 
     @Override
-    public List<Project> deleteProject(int projectId) {
+    public List<Project> delete(int projectId) {
         projectRepository.deleteById(projectId);
         return projectRepository.findAll();
     }
 
     @Override
-    public List<Project> updateProject(int projectId, Project project) {
-        projectRepository.updateProject(projectId, project.getName(), project.getDescription(), project.getCustomer(), project.getPlannedStartDate(), project.getFactStartDate(), project.getPlannedFinishDate(), project.getFactFinishDate(), project.getPlannedCost(), project.getFactCost(), project.getPlannedProfit(), project.getFactProfit(), project.getUser().getUserId());
+    public List<Project> update(int projectId, Project project) {
+        projectRepository.updateProject(projectId, project.getName(), project.getDescription(), project.getCustomer(), project.getPlannedStartDate(), project.getFactStartDate(), project.getPlannedFinishDate(), project.getFactFinishDate(), project.getPlannedCost(), project.getFactCost(), project.getPlannedProfit(), project.getFactProfit());
         return projectRepository.findAll();
     }
 
@@ -285,18 +294,35 @@ public class ProjectServiceRepoImpl implements ProjectService {
     }
 
     @Override
-    public Project getByProjectManager(User user) {
-        return projectRepository.findByUser(user);
-    }
-
-    @Override
-    public List<Project> deleteByProjectManager(User user) {
-        projectRepository.deleteByUser(user);
+    public List<Project> deleteAll() {
+        projectRepository.deleteAll();
         return projectRepository.findAll();
     }
 
     @Override
-    public List<Project> deleteAll() {
-        return null;
+    public List<Project> getProjectsByUserId(int userId) { // returns all projects that certain user has been working for
+        List<Task> userTasks = taskRepository.findAll();
+        userTasks.removeIf(e -> e.user.getId() != userId);
+        List<Project> projects = new ArrayList<>();
+        for(Task task : userTasks) {
+            projects.add(task.project);
+        }
+        return projects.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Project> getProjectsByPMId(int PMId) { //returns projects managed by certain project manager
+        List<Task> userTasks = taskRepository.findAll();
+        userTasks.removeIf(e -> (e.user.getId() != PMId || e.taskType.getTaskTypeId() != 1));
+        List<Project> projects = new ArrayList<>();
+        for(Task task : userTasks) {
+            projects.add(task.project);
+        }
+        return projects.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public Project getProjectByTaskId(int taskId) {
+        return taskRepository.getById(taskId).project;
     }
 }

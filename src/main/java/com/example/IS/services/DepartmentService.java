@@ -6,19 +6,21 @@ import com.example.IS.models.Office;
 import java.util.List;
 
 public interface DepartmentService {
-    public Department getById(int departmentId);
+    Department getById(int departmentId);
 
-    public List<Department> createDepartment(Department department);
+    List<Department> create(Department department);
 
-    public List<Department> deleteDepartment(int departmentId);
+    List<Department> delete(int departmentId);
 
-    public List<Department> updateDepartment(int departmentId, Department department);
+    List<Department> update(int departmentId, Department department);
 
-    public List<Department> getAll();
+    List<Department> getAll();
 
-    public List<Department> getAllByName(String name);
+    List<Department> getAllByName(String name);
 
-    public List<Department> getAllByOffice(Office office);
+    List<Department> getAllByOffice(Office office);
 
-    public List<Department> deleteAll();
+    List<Department> getAllByOfficeId(int officeId);
+
+    List<Department> deleteAll();
 }

@@ -8,11 +8,13 @@ import com.example.IS.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TaskServiceRepoImpl implements TaskService {
     private final TaskRepository taskRepository;
     @Override
@@ -21,19 +23,19 @@ public class TaskServiceRepoImpl implements TaskService {
     }
 
     @Override
-    public List<Task> createTask(Task task) {
+    public List<Task> create(Task task) {
         taskRepository.saveAndFlush(task);
         return taskRepository.findAll();
     }
 
     @Override
-    public List<Task> deleteTask(int taskId) {
+    public List<Task> delete(int taskId) {
         taskRepository.deleteById(taskId);
         return taskRepository.findAll();
     }
 
     @Override
-    public List<Task> updateTask(int taskId, Task task) {
+    public List<Task> update(int taskId, Task task) {
         taskRepository.updateTask(taskId, task.getStartDate(), task.getFinishDate(), task.getProject().getProjectId(), task.getUser().getUserId(), task.getName(), task.getDescription());
         return taskRepository.findAll();
     }
@@ -121,5 +123,15 @@ public class TaskServiceRepoImpl implements TaskService {
     @Override
     public List<Task> getAllByProject(Project project) {
         return taskRepository.findAllByProject(project);
+    }
+
+    @Override
+    public List<Task> getAllByUserId(int userId) {
+        return taskRepository.findAll().removeIf(e -> e.user.getUserId() != userId);
+    }
+
+    @Override
+    public List<Task> getAllByProjectId(int projectId) {
+        return taskRepository.findAll().removeIf(e -> e.user.getProjectId() != projectId);
     }
 }

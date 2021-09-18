@@ -1,6 +1,8 @@
 package com.example.IS.serviceImpl.repoImpl;
 
+import com.example.IS.models.Department;
 import com.example.IS.models.Office;
+import com.example.IS.repositories.DepartmentRepository;
 import com.example.IS.repositories.OfficeRepository;
 import com.example.IS.services.OfficeService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 @Transactional
 public class OfficeServiceRepoImpl implements OfficeService {
     private final OfficeRepository officeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public Office getById(int officeId) {
@@ -21,19 +24,19 @@ public class OfficeServiceRepoImpl implements OfficeService {
     }
 
     @Override
-    public List<Office> createOffice(Office office) {
+    public List<Office> create(Office office) {
         officeRepository.saveAndFlush(office);
         return officeRepository.findAll();
     }
 
     @Override
-    public List<Office> deleteOffice(int officeId) {
+    public List<Office> delete(int officeId) {
         officeRepository.deleteById(officeId);
         return officeRepository.findAll();
     }
 
     @Override
-    public List<Office> updateOffice(int officeId, Office office) {
+    public List<Office> update(int officeId, Office office) {
         officeRepository.updateOffice(officeId, office.getAddress());
         officeRepository.flush();
         return officeRepository.findAll();
@@ -54,6 +57,12 @@ public class OfficeServiceRepoImpl implements OfficeService {
     public Office getOfficeByAddress(String address) {
         return officeRepository.findByAddress(address);
     }
+
+    @Override
+    public Office getOfficeByDepartmentId(int departmentId) {
+        return departmentRepository.getById(departmentId).office;
+    }
+
 
     @Override
     public List<Office> deleteAll() {

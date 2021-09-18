@@ -22,19 +22,19 @@ public class DepartmentServiceRepoImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> createDepartment(Department department) {
+    public List<Department> create(Department department) {
         departmentRepository.saveAndFlush(department);
         return departmentRepository.findAll();
     }
 
     @Override
-    public List<Department> deleteDepartment(int departmentId) {
+    public List<Department> delete(int departmentId) {
         departmentRepository.deleteById(departmentId);
         return departmentRepository.findAll();
     }
 
     @Override
-    public List<Department> updateDepartment(int departmentId, Department department) {
+    public List<Department> update(int departmentId, Department department) {
         departmentRepository.updateDepartment(departmentId, department.getName(), department.getOffice().getOfficeId());
         return departmentRepository.findAll();
     }
@@ -52,6 +52,13 @@ public class DepartmentServiceRepoImpl implements DepartmentService {
     @Override
     public List<Department> getAllByOffice(Office office) {
         return departmentRepository.findAllByOffice(office);
+    }
+
+    @Override
+    public List<Department> getAllByOfficeId(int officeId) {
+        List<Department> departments = departmentRepository.findAll();
+        departments.removeIf(e -> e.office.getOfficeId() != officeId);
+        return departments;
     }
 
     @Override

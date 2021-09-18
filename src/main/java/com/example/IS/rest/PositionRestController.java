@@ -1,8 +1,8 @@
 package com.example.IS.rest;
 
 import com.example.IS.exceptions.EntityNotFoundException;
-import com.example.IS.models.Department;
 import com.example.IS.models.Position;
+import com.example.IS.serviceImpl.repoImpl.PositionServiceRepoImpl;
 import com.example.IS.services.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/position")
 @RequiredArgsConstructor
 public class PositionRestController {
-    private final PositionService positionService;
+    private final PositionServiceRepoImpl positionService;
 
     @GetMapping("/")
     public List<Position> getPositions() {
@@ -22,7 +22,7 @@ public class PositionRestController {
 
     @PostMapping("/")
     public List<Position> createPosition(Position position) {
-        return positionService.createPosition(position);
+        return positionService.create(position);
     }
 
 
@@ -38,7 +38,7 @@ public class PositionRestController {
 
     @DeleteMapping("/{id}")
     public List<Position> deletePosition(@PathVariable int id) {
-        return positionService.deletePosition(id);
+        return positionService.delete(id);
     }
 
     @PutMapping("/{id}")
@@ -46,7 +46,7 @@ public class PositionRestController {
         if(positionService.getById(id) == null)
             throw new EntityNotFoundException();
         else
-            return positionService.updatePosition(id, position);
+            return positionService.update(id, position);
     }
 
     @GetMapping("/name")
@@ -57,6 +57,11 @@ public class PositionRestController {
     @GetMapping("/grade")
     public List<Position> getPositionsByGrade(@RequestParam int grade) {
         return positionService.getAllByGrade(grade);
+    }
+
+    @GetMapping("/user")
+    public Position getPositionByUserId(@RequestParam int userId) {
+        return positionService.getByUserId(userId);
     }
 
 }

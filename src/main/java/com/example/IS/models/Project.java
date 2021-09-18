@@ -58,8 +58,4 @@ public class Project {
     @Column(name = "fact_profit")
     private int factProfit;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public User user;
-
 }

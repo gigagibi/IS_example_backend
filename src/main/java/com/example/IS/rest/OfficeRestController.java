@@ -21,7 +21,7 @@ public class OfficeRestController {
 
     @PostMapping("/")
     public List<Office> createOffice(@RequestBody Office office) {
-        return officeService.createOffice(office);
+        return officeService.create(office);
     }
 
     @GetMapping("/{id}")
@@ -39,7 +39,7 @@ public class OfficeRestController {
     public List<Office> deleteOffice(@PathVariable int id) throws EntityNotFoundException{
         if(officeService.getById(id) == null)
             throw new EntityNotFoundException();
-        return officeService.deleteOffice(id);
+        return officeService.delete(id);
     }
 
     @PutMapping("/{officeId}")
@@ -47,7 +47,7 @@ public class OfficeRestController {
         if(officeService.getById(officeId) == null)
             throw new EntityNotFoundException();
         else {
-            officeService.updateOffice(officeId, newOffice);
+            officeService.update(officeId, newOffice);
             return officeService.getAll();
         }
     }
@@ -60,5 +60,10 @@ public class OfficeRestController {
     @DeleteMapping("/address")
     public List<Office> deleteOfficeByAddress(@RequestParam String address) {
         return officeService.deleteOfficeByAddress(address);
+    }
+
+    @GetMapping("/department")
+    public Office getOfficeByDepartmentId(@RequestParam int departmentId) {
+        return officeService.getOfficeByDepartmentId(departmentId);
     }
 }

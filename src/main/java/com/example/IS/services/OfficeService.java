@@ -8,17 +8,19 @@ import java.util.List;
 public interface OfficeService {
     Office getById(int officeId);
 
-    List<Office> createOffice(Office office);
+    List<Office> create(Office office);
 
-    List<Office> deleteOffice(int officeId);
+    List<Office> delete(int officeId);
 
-    List<Office> updateOffice(int officeId, Office office);
+    List<Office> update(int officeId, Office office);
 
     List<Office> getAll();
 
     List<Office> deleteOfficeByAddress(String address);
 
     Office getOfficeByAddress(String address);
+
+    Office getOfficeByDepartmentId(int departmentId);
 
     List<Office> deleteAll();
 }

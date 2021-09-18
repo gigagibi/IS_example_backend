@@ -10,11 +10,11 @@ import java.util.List;
 public interface ProjectService {
     Project getById(int projectId);
 
-    List<Project> createProject(Project Project);
+    List<Project> create(Project Project);
 
-    List<Project> deleteProject(int projectId);
+    List<Project> delete(int projectId);
 
-    List<Project> updateProject(int projectId, Project project);
+    List<Project> update(int projectId, Project project);
 
     List<Project> getAll();
 
@@ -114,9 +114,11 @@ public interface ProjectService {
 
     List<Project> deleteByName(String name);
 
-    Project getByProjectManager(User user);
-
-    List<Project> deleteByProjectManager(User user);
-
     List<Project> deleteAll();
+
+    List<Project> getProjectsByUserId(int userId);
+
+    List<Project> getProjectsByPMId(int PMId);
+
+    Project getProjectByTaskId(int taskId);
 }

@@ -2,10 +2,8 @@ package com.example.IS.rest;
 
 import com.example.IS.exceptions.EntityNotFoundException;
 import com.example.IS.models.Department;
-import com.example.IS.repositories.DepartmentRepository;
 import com.example.IS.serviceImpl.repoImpl.DepartmentServiceRepoImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class DepartmentRestController {
 
     @PostMapping("/")
     public List<Department> createDepartment(@RequestBody Department department) {
-        return departmentService.createDepartment(department);
+        return departmentService.create(department);
     }
 
     @GetMapping("/{id}")
@@ -41,7 +39,7 @@ public class DepartmentRestController {
         if(departmentService.getById(id) == null)
             throw new EntityNotFoundException();
         else
-            return departmentService.deleteDepartment(id);
+            return departmentService.delete(id);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +47,7 @@ public class DepartmentRestController {
         if(departmentService.getById(id) == null)
             throw new EntityNotFoundException();
         else {
-            departmentService.updateDepartment(id, department);
+            departmentService.update(id, department);
             return departmentService.getAll();
         }
     }
@@ -60,9 +58,7 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/office")
-    public List<Department> getDepartmentsByOffice(@RequestParam int officeId) {
-        List<Department> departments = departmentService.getAll();
-        departments.removeIf(e -> e.office.getOfficeId() != officeId);
-        return departments;
+    public List<Department> getDepartmentsByOfficeId(@RequestParam int officeId) {
+        return departmentService.getAllByOfficeId(officeId);
     }
 }
