@@ -26,6 +26,11 @@ public class TaskTypeServiceRepoImpl implements TaskTypeService {
     }
 
     @Override
+    public List<TaskType> getAll() {
+        return taskTypeRepository.findAll();
+    }
+
+    @Override
     public List<TaskType> update(int taskTypeId, TaskType taskType) {
         taskTypeRepository.updateTaskType(taskTypeId, taskType.getTaskType());
         return taskTypeRepository.findAll();
@@ -40,6 +45,18 @@ public class TaskTypeServiceRepoImpl implements TaskTypeService {
     @Override
     public List<TaskType> deleteByTaskType(String taskType) {
         taskTypeRepository.deleteByTaskType(taskType);
+        return taskTypeRepository.findAll();
+    }
+
+    @Override
+    public List<TaskType> deleteAll() {
+        taskTypeRepository.deleteAll();
+        return taskTypeRepository.findAll();
+    }
+
+    @Override
+    public List<TaskType> delete(int taskTypeId) {
+        taskTypeRepository.deleteById(taskTypeId);
         return taskTypeRepository.findAll();
     }
 

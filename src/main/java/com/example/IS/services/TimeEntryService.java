@@ -29,7 +29,11 @@ public interface TimeEntryService {
 
     List<TimeEntry> getAllByEntryDateIsAfter(OffsetDateTime date);
 
+    List<TimeEntry> getUsersByEntryDateBetween(int userId, OffsetDateTime min, OffsetDateTime max);
+
     List<TimeEntry> deleteAll();
 
     List<TimeEntry> getAllByTask(Task task);
+
+    List<TimeEntry> getAllByEntryDateBetween(OffsetDateTime min, OffsetDateTime max);
 }

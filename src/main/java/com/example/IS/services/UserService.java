@@ -59,7 +59,11 @@ public interface UserService {
 
      List<User> getAllByDepartment(Department department);
 
-     List<User> getAllByPosition (Position position);
+    List<User> getAllByDepartmentId(int departmentId);
+
+    List<User> getAllByPosition (Position position);
+
+     List<User> getAllByPositionId(int positionId);
 
      List<User> deleteAll();
 }

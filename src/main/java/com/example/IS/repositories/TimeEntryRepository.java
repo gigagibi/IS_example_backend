@@ -27,8 +27,9 @@ public interface TimeEntryRepository extends JpaRepository<TimeEntry, Integer> {
 
     List<TimeEntry> findAllByEntryDateIsAfter(OffsetDateTime date);
 
-    List <TimeEntry> findAllByTask(Task task);
+    List<TimeEntry> findAllByTask(Task task);
 
+    List<TimeEntry> findAllByEntryDateBetween(OffsetDateTime min, OffsetDateTime max);
     @Modifying
     @Query(value = "update time_entries set task_id = ?2, hours = ?3, entry_date = ?4 where entry_id = ?1", nativeQuery = true)
     Department updateTimeEntry(int id, int taskId, int hours, OffsetDateTime entryDate);

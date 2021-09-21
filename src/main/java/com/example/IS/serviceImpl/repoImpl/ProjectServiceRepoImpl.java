@@ -302,7 +302,7 @@ public class ProjectServiceRepoImpl implements ProjectService {
     @Override
     public List<Project> getProjectsByUserId(int userId) { // returns all projects that certain user has been working for
         List<Task> userTasks = taskRepository.findAll();
-        userTasks.removeIf(e -> e.user.getId() != userId);
+        userTasks.removeIf(e -> e.user.getUserId() != userId);
         List<Project> projects = new ArrayList<>();
         for(Task task : userTasks) {
             projects.add(task.project);
@@ -313,7 +313,7 @@ public class ProjectServiceRepoImpl implements ProjectService {
     @Override
     public List<Project> getProjectsByPMId(int PMId) { //returns projects managed by certain project manager
         List<Task> userTasks = taskRepository.findAll();
-        userTasks.removeIf(e -> (e.user.getId() != PMId || e.taskType.getTaskTypeId() != 1));
+        userTasks.removeIf(e -> (e.user.getUserId() != PMId || e.taskType.getTaskTypeId() != 1));
         List<Project> projects = new ArrayList<>();
         for(Task task : userTasks) {
             projects.add(task.project);

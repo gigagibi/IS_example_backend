@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/position")
+@RequestMapping("api/position")
 @RequiredArgsConstructor
 public class PositionRestController {
     private final PositionServiceRepoImpl positionService;

@@ -72,6 +72,11 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     }
 
     @Override
+    public List<TimeEntry> getUsersByEntryDateBetween(int userId, OffsetDateTime min, OffsetDateTime max) {
+        return timeEntryRepository.findAllByEntryDateBetween(min, max).stream().filter(e -> e.task.user.getId() == userId);
+    }
+
+    @Override
     public List<TimeEntry> deleteAll() {
         return null;
     }

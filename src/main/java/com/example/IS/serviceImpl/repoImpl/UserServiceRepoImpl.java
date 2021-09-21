@@ -146,8 +146,18 @@ public class UserServiceRepoImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllByDepartmentId(int departmentId) {
+        return userRepository.findAll().stream().filter(e -> e.department.getDepartmentId() == departmentId);
+    }
+
+    @Override
     public List<User> getAllByPosition(Position position) {
         return userRepository.findAllByPosition(position);
+    }
+
+    @Override
+    public List<User> getAllByPositionId(int positionId) {
+        return userRepository.findAll().stream().filter(e -> e.position.getPositionId() == positionId);
     }
 
     @Override

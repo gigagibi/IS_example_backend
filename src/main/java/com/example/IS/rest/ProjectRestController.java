@@ -1,6 +1,7 @@
 package com.example.IS.rest;
 
 import com.example.IS.models.Project;
+import com.example.IS.models.Task;
 import com.example.IS.serviceImpl.repoImpl.ProjectServiceRepoImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +45,17 @@ public class ProjectRestController {
     }
 
     @GetMapping("/user")
+    public List<Project> getProjectsByUserId(@RequestParam int userId) {
+        return projectService.getProjectsByUserId(userId);
+    }
+
+    @GetMapping("/project_manager")
+    public List<Project> getProjectsByPMId(@RequestParam int PMId) {
+        return projectService.getProjectsByPMId(PMId);
+    }
+
+    @GetMapping("/task")
+    public Project getProjectByTaskId(int taskId) {
+        return projectService.getProjectByTaskId(taskId);
+    }
 }

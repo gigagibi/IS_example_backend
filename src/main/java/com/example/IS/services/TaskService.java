@@ -55,4 +55,8 @@ public interface TaskService {
     List<Task> getAllByUserId(int userId);
 
     List<Task> getAllByProjectId(int projectId);
+
+    List<Task> getAllByTaskTypeId(int taskTypeId);
+
+    List<Task> getAllByTaskType(String taskType);
 }

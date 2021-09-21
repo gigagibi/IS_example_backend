@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -127,11 +128,11 @@ public class TaskServiceRepoImpl implements TaskService {
 
     @Override
     public List<Task> getAllByUserId(int userId) {
-        return taskRepository.findAll().removeIf(e -> e.user.getUserId() != userId);
+        return taskRepository.findAll().stream().filter(e -> e.user.getUserId() == userId).collect(Collectors.toList());
     }
 
     @Override
     public List<Task> getAllByProjectId(int projectId) {
-        return taskRepository.findAll().removeIf(e -> e.user.getProjectId() != projectId);
+        return taskRepository.findAll().stream().filter(e -> e.project.getProjectId() == projectId).collect(Collectors.toList());
     }
 }
