@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,7 +74,7 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
 
     @Override
     public List<TimeEntry> getUsersByEntryDateBetween(int userId, OffsetDateTime min, OffsetDateTime max) {
-        return timeEntryRepository.findAllByEntryDateBetween(min, max).stream().filter(e -> e.task.user.getId() == userId);
+        return timeEntryRepository.findAllByEntryDateBetween(min, max).stream().filter(e -> e.task.user.getUserId() == userId).collect(Collectors.toList());
     }
 
     @Override
@@ -84,5 +85,10 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     @Override
     public List<TimeEntry> getAllByTask(Task task) {
         return timeEntryRepository.findAllByTask(task);
+    }
+
+    @Override
+    public List<TimeEntry> getAllByEntryDateBetween(OffsetDateTime min, OffsetDateTime max) {
+        return null;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -147,7 +148,7 @@ public class UserServiceRepoImpl implements UserService {
 
     @Override
     public List<User> getAllByDepartmentId(int departmentId) {
-        return userRepository.findAll().stream().filter(e -> e.department.getDepartmentId() == departmentId);
+        return userRepository.findAll().stream().filter(e -> e.department.getDepartmentId() == departmentId).collect(Collectors.toList());
     }
 
     @Override
@@ -157,7 +158,7 @@ public class UserServiceRepoImpl implements UserService {
 
     @Override
     public List<User> getAllByPositionId(int positionId) {
-        return userRepository.findAll().stream().filter(e -> e.position.getPositionId() == positionId);
+        return userRepository.findAll().stream().filter(e -> e.position.getPositionId() == positionId).collect(Collectors.toList());
     }
 
     @Override

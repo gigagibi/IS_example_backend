@@ -135,4 +135,14 @@ public class TaskServiceRepoImpl implements TaskService {
     public List<Task> getAllByProjectId(int projectId) {
         return taskRepository.findAll().stream().filter(e -> e.project.getProjectId() == projectId).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Task> getAllByTaskTypeId(int taskTypeId) {
+        return null;
+    }
+
+    @Override
+    public List<Task> getAllByTaskType(String taskType) {
+        return null;
+    }
 }
