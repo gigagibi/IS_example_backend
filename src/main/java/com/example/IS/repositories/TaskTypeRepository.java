@@ -14,7 +14,7 @@ public interface TaskTypeRepository extends JpaRepository<TaskType, Integer> {
     TaskType findByTaskType(String taskType);
 
     @Modifying
-    @Query(value = "update task_type set task_type = ?2", nativeQuery = true)
+    @Query(value = "update TaskType set taskType = ?2")
     void updateTaskType(int taskTypeId, String taskType);
 
     void deleteByTaskType(String taskType);

@@ -35,7 +35,7 @@ public class DepartmentServiceRepoImpl implements DepartmentService {
 
     @Override
     public List<Department> update(int departmentId, Department department) {
-        departmentRepository.updateDepartment(departmentId, department.getName(), department.getOffice().getOfficeId());
+        departmentRepository.updateDepartment(departmentId, department.getName(), department.getOffice());
         return departmentRepository.findAll();
     }
 

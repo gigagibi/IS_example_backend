@@ -38,7 +38,7 @@ public class UserServiceRepoImpl implements UserService {
 
     @Override
     public List<User> update(int userId, User user) {
-        userRepository.updatePosition(userId, user.getSurname(), user.getName(), user.getPatronym(), user.getHireDate(), user.getDismissalDate(), user.getEmail(), user.getPosition().getPositionId(), user.getDepartment().getDepartmentId());
+        userRepository.updateUser(userId, user.getSurname(), user.getName(), user.getPatronym(), user.getHireDate(), user.getDismissalDate(), user.getEmail(), user.getPosition(), user.getDepartment());
         return userRepository.findAll();
     }
 

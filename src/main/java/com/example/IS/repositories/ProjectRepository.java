@@ -119,6 +119,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     void deleteByName(String name);
 
     @Modifying
-    @Query(value = "update projects set name = ?2, description = ?3, customer = ?4, planned_start_date = ?5, fact_start_date = ?6, planned_finish_date = ?7, fact_finish_date = ?8, planned_cost = ?9, fact_cost = ?10, planned_profit = ?11, fact_profit = ?12 where project_id = ?1", nativeQuery = true)
-    Department updateProject(int id, String name, String description, String customer, Date plannedStartDate, Date factStartDate, Date plannedFinishDate, Date factFinishDate, int plannedCost, int factCost, int plannedProfit, int factProfit);
+    @Query(value = "update Project set name = ?2, description = ?3, customer = ?4, plannedStartDate = ?5, factStartDate = ?6, plannedFinishDate = ?7, factFinishDate = ?8, plannedCost = ?9, factCost = ?10, plannedProfit = ?11, factProfit = ?12 where projectId = ?1")
+    void updateProject(int id, String name, String description, String customer, Date plannedStartDate, Date factStartDate, Date plannedFinishDate, Date factFinishDate, int plannedCost, int factCost, int plannedProfit, int factProfit);
 }

@@ -18,6 +18,6 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
     Position findByPositionId(int positionId);
 
     @Modifying
-    @Query(value = "update positions set name = ?2, grade = ?3 where pos_id = ?1", nativeQuery = true)
-    Department updatePosition(int id, String name, int grade);
+    @Query(value = "update Position set name = ?2, grade = ?3 where positionId = ?1")
+    void updatePosition(int id, String name, int grade);
 }

@@ -21,7 +21,7 @@ public class PositionRestController {
     }
 
     @PostMapping("/")
-    public List<Position> createPosition(Position position) {
+    public List<Position> createPosition(@RequestBody Position position) {
         return positionService.create(position);
     }
 

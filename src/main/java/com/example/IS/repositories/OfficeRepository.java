@@ -18,6 +18,6 @@ public interface OfficeRepository extends JpaRepository<Office, Integer> {
     void deleteByAddress(String address);
 
     @Modifying
-    @Query(value = "update offices set address= ?2 where office_id = ?1", nativeQuery = true)
+    @Query(value = "update Office set address= ?2 where officeId = ?1")
     void updateOffice(int id, String address);
 }

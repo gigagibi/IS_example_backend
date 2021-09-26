@@ -57,5 +57,4 @@ public class Project {
 
     @Column(name = "fact_profit")
     private int factProfit;
-
 }

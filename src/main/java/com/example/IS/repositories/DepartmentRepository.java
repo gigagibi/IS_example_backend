@@ -21,6 +21,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     List<Department> findAllByOffice(Office office);
 
     @Modifying
-    @Query(value = "update departments set name = ?2, office_id = ?3 where department_id = ?1", nativeQuery = true)
-    void updateDepartment(int id, String name, int officeId);
+    @Query(value = "update Department set name = ?2, office = ?3 where departmentId = ?1")
+    void updateDepartment(int id, String name, Office office);
 }

@@ -60,7 +60,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findAllByPosition (Position position);
 
+//    @Modifying
+//    @Query(value = "update users set surname = ?2, name = ?3, patronym = ?4, hire_date = ?5, dismissal_date = ?6, email = ?7, position_id = ?8, department_id = ?9 where user_id= ?1", nativeQuery = true)
+//    void updateUser(int id, String surname, String name, String patronym,  hire_date, Date dismissal_date, String email, int positionId, int departmentId);
+
     @Modifying
-    @Query(value = "update users set surname = ?2, name = ?3, patronym = ?4, hire_date = ?5, dismissal_date = ?6, email = ?7, position_id = ?8, department_id = ?9 where user_id= ?1", nativeQuery = true)
-    Department updatePosition(int id, String surname, String name, String patronym, Date hire_date, Date dismissal_date, String email, int positionId, int departmentId);
+    @Query(value = "update User set surname = ?2, name = ?3, patronym = ?4, hireDate = ?5, dismissalDate = ?6, email = ?7, position = ?8, department = ?9 where userId= ?1")
+        void updateUser(int id, String surname, String name, String patronym, Date hire_date, Date dismissal_date, String email, Position position, Department department);
 }

@@ -37,7 +37,7 @@ public class TaskServiceRepoImpl implements TaskService {
 
     @Override
     public List<Task> update(int taskId, Task task) {
-        taskRepository.updateTask(taskId, task.getStartDate(), task.getFinishDate(), task.getProject().getProjectId(), task.getUser().getUserId(), task.getName(), task.getDescription());
+        taskRepository.updateTask(taskId, task.getName(), task.getDescription(), task.getStartDate(), task.getFinishDate(), task.getProject(), task.getUser());
         return taskRepository.findAll();
     }
 

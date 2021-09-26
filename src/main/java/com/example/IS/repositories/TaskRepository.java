@@ -51,6 +51,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     List<Task> findAllByProject(Project project);
 
     @Modifying
-    @Query(value = "update tasks set name = ?2, description = ?3, start_date = ?4, finish_date = ?5, project_id = ?6, user_id = ?7 where pos_id = ?1", nativeQuery = true)
-    Department updateTask(int id, Date startDate, Date finishDate, int projectId, int userId, String name, String description);
+    @Query(value = "update Task set name = ?2, description = ?3, startDate = ?4, finishDate = ?5, project = ?6, user = ?7 where taskId = ?1")
+    void updateTask(int id, String name, String description, Date startDate, Date finishDate, Project project, User user);
 }

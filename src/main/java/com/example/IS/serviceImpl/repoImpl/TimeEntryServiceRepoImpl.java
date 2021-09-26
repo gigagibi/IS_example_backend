@@ -37,7 +37,7 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
 
     @Override
     public List<TimeEntry> update(int timeEntryId, TimeEntry timeEntry) {
-        timeEntryRepository.updateTimeEntry(timeEntryId, timeEntry.getTask().getTaskId(), timeEntry.getHours(), timeEntry.getEntryDate());
+        timeEntryRepository.updateTimeEntry(timeEntryId, timeEntry.getTask(), timeEntry.getHours(), timeEntry.getEntryDate());
         return timeEntryRepository.findAll();
     }
 
