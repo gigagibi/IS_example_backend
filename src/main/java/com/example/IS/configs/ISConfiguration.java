@@ -3,6 +3,7 @@ package com.example.IS.configs;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -14,9 +15,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.example.IS.repositories")
+//@Import(SecurityConfig.class)
 public class ISConfiguration implements WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -24,17 +30,22 @@ public class ISConfiguration implements WebMvcConfigurer{
     }
 
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws IOException {
+        FileReader fr = new FileReader("src/main/resources/config.txt");
+        BufferedReader reader = new BufferedReader(fr);
+        String url = reader.readLine();
+        String username = reader.readLine();
+        String password = reader.readLine();
         DataSourceBuilder builder = DataSourceBuilder.create();
         builder.driverClassName("org.postgresql.Driver");
-        builder.url("jdbc:postgresql://localhost:5432/IS");
-        builder.username("postgres");
-        builder.password("admin");
+        builder.url(url);
+        builder.username(username);
+        builder.password(password);
         return builder.build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws IOException {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);

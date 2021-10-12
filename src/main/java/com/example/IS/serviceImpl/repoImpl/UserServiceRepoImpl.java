@@ -6,6 +6,9 @@ import com.example.IS.models.User;
 import com.example.IS.repositories.UserRepository;
 import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -165,4 +168,10 @@ public class UserServiceRepoImpl implements UserService {
     public List<User> deleteAll() {
         return null;
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+//        User user = userRepository.findBy
+//        return null;
+//    }
 }
