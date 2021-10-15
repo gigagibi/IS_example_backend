@@ -7,6 +7,7 @@ import com.example.IS.serviceImpl.repoImpl.UserServiceRepoImpl;
 import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +28,13 @@ public class AuthController {
         return "OK";
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public String auth(@RequestBody AuthRequest authRequest) {
         String login = authRequest.getLogin();
         String password = authRequest.getPassword();
-        if(userService.getByLoginAndPassword(login, password) != null)
-            return jwtProvider.generateToken(login, password);
+        User user = userService.getByLogin(login);
+        if(user != null && BCrypt.checkpw(password, user.getPassword()))
+            return jwtProvider.generateToken(login);
         else
             return "User not found";
     }

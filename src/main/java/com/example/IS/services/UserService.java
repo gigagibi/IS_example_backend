@@ -68,7 +68,5 @@ public interface UserService {
      List<User> deleteAll();
 
      User getByLogin(String login);
-
-     User getByLoginAndPassword(String login, String password);
 }
 

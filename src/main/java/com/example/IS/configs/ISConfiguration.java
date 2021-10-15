@@ -13,12 +13,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -40,11 +38,6 @@ public class ISConfiguration implements WebMvcConfigurer{
 
     @Bean
     public DataSource dataSource() throws IOException {
-//        FileReader fr = new FileReader("src/main/resources/config.txt");
-//        BufferedReader reader = new BufferedReader(fr);
-//        String url = reader.readLine();
-//        String username = reader.readLine();
-//        String password = reader.readLine();
         DataSourceBuilder builder = DataSourceBuilder.create();
         builder.driverClassName("org.postgresql.Driver");
         builder.url(url);

@@ -14,10 +14,10 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public String generateToken(String login, String password) {
+    public String generateToken(String login) {
         Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
-                .setSubject(login + " " + password)
+                .setSubject(login)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
@@ -43,6 +43,6 @@ public class JwtProvider {
 
     public String getLoginFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-        return claims.getSubject().split(" ")[0];
+        return claims.getSubject();
     }
 }

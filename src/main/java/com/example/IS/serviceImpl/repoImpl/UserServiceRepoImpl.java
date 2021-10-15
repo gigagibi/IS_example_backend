@@ -178,15 +178,4 @@ public class UserServiceRepoImpl implements UserService {
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
     }
-
-    @Override
-    public User getByLoginAndPassword(String login, String password) {
-        return userRepository.findByLoginAndPassword(login, passwordEncoder.encode(password));
-    }
-
-    //    @Override
-//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-//        User user = userRepository.findBy
-//        return null;
-//    }
 }
