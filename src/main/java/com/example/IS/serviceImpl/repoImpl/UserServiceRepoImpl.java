@@ -6,9 +6,11 @@ import com.example.IS.models.User;
 import com.example.IS.repositories.UserRepository;
 import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public User getById(int userId) {
         return userRepository.findByUserId(userId);
@@ -29,6 +33,7 @@ public class UserServiceRepoImpl implements UserService {
 
     @Override
     public List<User> create(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveAndFlush(user);
         return userRepository.findAll();
     }
@@ -167,6 +172,11 @@ public class UserServiceRepoImpl implements UserService {
     @Override
     public List<User> deleteAll() {
         return null;
+    }
+
+    @Override
+    public User getByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
 //    @Override

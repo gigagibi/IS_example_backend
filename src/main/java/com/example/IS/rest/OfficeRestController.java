@@ -4,6 +4,8 @@ import com.example.IS.exceptions.EntityNotFoundException;
 import com.example.IS.models.Office;
 import com.example.IS.serviceImpl.repoImpl.OfficeServiceRepoImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +16,13 @@ import java.util.List;
 public class OfficeRestController {
     private final OfficeServiceRepoImpl officeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/")
     public List<Office> getOffices() {
         return officeService.getAll();
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/")
     public List<Office> createOffice(@RequestBody Office office) {
         return officeService.create(office);

@@ -34,6 +34,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 
+    User findByLogin(String login);
+
     // filtration
     List<User> findAllByHireDateBetween(Date min, Date max);
 
@@ -66,5 +68,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Modifying
     @Query(value = "update User set surname = ?2, name = ?3, patronym = ?4, hireDate = ?5, dismissalDate = ?6, email = ?7, position = ?8, department = ?9 where userId= ?1")
-        void updateUser(int id, String surname, String name, String patronym, Date hire_date, Date dismissal_date, String email, Position position, Department department);
+    void updateUser(int id, String surname, String name, String patronym, Date hire_date, Date dismissal_date, String email, Position position, Department department);
+
+    @Modifying
+    @Query(value = "update User set password = ?2")
+    void updatePassword(int id, String password);
 }

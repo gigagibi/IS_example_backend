@@ -66,5 +66,7 @@ public interface UserService {
      List<User> getAllByPositionId(int positionId);
 
      List<User> deleteAll();
+
+     User getByLogin(String login);
 }
 

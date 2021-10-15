@@ -1,5 +1,6 @@
 package com.example.IS.configs;
 
+import com.example.IS.security.SecurityConfig;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.example.IS.repositories")
-//@Import(SecurityConfig.class)
+@Import(SecurityConfig.class)
 public class ISConfiguration implements WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry registry) {

@@ -1,5 +1,6 @@
 package com.example.IS.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -46,4 +47,15 @@ public class User {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "position_id", referencedColumnName = "pos_id")
     public Position position;
+
+    @Column(name = "role")
+    private String role;
+
+    @JsonIgnore
+    @Column(name = "login")
+    private String login;
+
+    @JsonIgnore
+    @Column(name = "password")
+    private String password;
 }
