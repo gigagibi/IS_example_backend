@@ -1,6 +1,7 @@
 package com.example.IS.configs;
 
 import com.example.IS.security.SecurityConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,13 @@ import java.io.IOException;
 @EnableJpaRepositories(basePackages = "com.example.IS.repositories")
 @Import(SecurityConfig.class)
 public class ISConfiguration implements WebMvcConfigurer{
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.password}")
+    private String password;
+    @Value("${spring.datasource.username}")
+    private String username;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("*");
@@ -32,11 +40,11 @@ public class ISConfiguration implements WebMvcConfigurer{
 
     @Bean
     public DataSource dataSource() throws IOException {
-        FileReader fr = new FileReader("src/main/resources/config.txt");
-        BufferedReader reader = new BufferedReader(fr);
-        String url = reader.readLine();
-        String username = reader.readLine();
-        String password = reader.readLine();
+//        FileReader fr = new FileReader("src/main/resources/config.txt");
+//        BufferedReader reader = new BufferedReader(fr);
+//        String url = reader.readLine();
+//        String username = reader.readLine();
+//        String password = reader.readLine();
         DataSourceBuilder builder = DataSourceBuilder.create();
         builder.driverClassName("org.postgresql.Driver");
         builder.url(url);

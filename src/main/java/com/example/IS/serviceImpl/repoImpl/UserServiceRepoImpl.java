@@ -179,7 +179,12 @@ public class UserServiceRepoImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
-//    @Override
+    @Override
+    public User getByLoginAndPassword(String login, String password) {
+        return userRepository.findByLoginAndPassword(login, passwordEncoder.encode(password));
+    }
+
+    //    @Override
 //    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 //        User user = userRepository.findBy
 //        return null;

@@ -11,13 +11,13 @@ import java.util.Date;
 @Component
 @Log
 public class JwtProvider {
-    @Value("$(jwt.secret)")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public String generateToken(String login) {
+    public String generateToken(String login, String password) {
         Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
-                .setSubject(login)
+                .setSubject(login + " " + password)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
@@ -43,6 +43,6 @@ public class JwtProvider {
 
     public String getLoginFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-        return claims.getSubject();
+        return claims.getSubject().split(" ")[0];
     }
 }

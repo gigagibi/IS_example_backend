@@ -73,4 +73,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "update User set password = ?2")
     void updatePassword(int id, String password);
+
+    User findByLoginAndPassword(String login, String password);
 }

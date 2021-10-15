@@ -29,6 +29,11 @@ public class AuthController {
 
     @PostMapping("/auth")
     public String auth(@RequestBody AuthRequest authRequest) {
-        return jwtProvider.generateToken(authRequest.getLogin());
+        String login = authRequest.getLogin();
+        String password = authRequest.getPassword();
+        if(userService.getByLoginAndPassword(login, password) != null)
+            return jwtProvider.generateToken(login, password);
+        else
+            return "User not found";
     }
 }
