@@ -4,6 +4,7 @@ import com.example.IS.models.Project;
 import com.example.IS.models.Task;
 import com.example.IS.serviceImpl.repoImpl.ProjectServiceRepoImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class ProjectRestController {
         return projectService.getAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public List<Project> createProject(@RequestBody Project project) {
         return projectService.create(project);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/")
     public List<Project> deleteProjects() {
         return projectService.deleteAll();
@@ -34,11 +37,13 @@ public class ProjectRestController {
         return projectService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public List<Project> deleteProject(@PathVariable int id) {
         return projectService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public List<Project> updateProject(@PathVariable int id, @RequestBody Project project) {
         return projectService.update(id, project);

@@ -16,13 +16,12 @@ import java.util.List;
 public class OfficeRestController {
     private final OfficeServiceRepoImpl officeService;
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/")
     public List<Office> getOffices() {
         return officeService.getAll();
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public List<Office> createOffice(@RequestBody Office office) {
         return officeService.create(office);
@@ -33,12 +32,13 @@ public class OfficeRestController {
         return officeService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/")
     public List<Office> deleteOffices() {
         return officeService.deleteAll();
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public List<Office> deleteOffice(@PathVariable int id) throws EntityNotFoundException{
         if(officeService.getById(id) == null)
@@ -46,6 +46,7 @@ public class OfficeRestController {
         return officeService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{officeId}")
     public List<Office> updateOffice(@PathVariable int officeId, @RequestBody Office newOffice) throws EntityNotFoundException {
         if(officeService.getById(officeId) == null)
@@ -56,11 +57,13 @@ public class OfficeRestController {
         }
     }
 
+
     @GetMapping("/address")
     public Office getOfficeByAddress(@RequestParam String address) {
         return officeService.getOfficeByAddress(address);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/address")
     public List<Office> deleteOfficeByAddress(@RequestParam String address) {
         return officeService.deleteOfficeByAddress(address);

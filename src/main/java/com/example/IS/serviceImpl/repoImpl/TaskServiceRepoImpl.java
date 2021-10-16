@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -113,7 +114,8 @@ public class TaskServiceRepoImpl implements TaskService {
 
     @Override
     public List<Task> deleteAll() {
-        return null;
+        taskRepository.deleteAll();
+        return taskRepository.findAll();
     }
 
     @Override
@@ -144,5 +146,11 @@ public class TaskServiceRepoImpl implements TaskService {
     @Override
     public List<Task> getAllByTaskType(String taskType) {
         return null;
+    }
+
+    @Override
+    public Task closeTask(int taskId) {
+        taskRepository.changeTaskFinishDate(taskId, java.sql.Date.valueOf(LocalDate.now()));
+        return taskRepository.getById(taskId);
     }
 }

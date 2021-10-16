@@ -5,6 +5,7 @@ import com.example.IS.models.Position;
 import com.example.IS.serviceImpl.repoImpl.PositionServiceRepoImpl;
 import com.example.IS.services.PositionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,14 @@ public class PositionRestController {
         return positionService.getAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public List<Position> createPosition(@RequestBody Position position) {
         return positionService.create(position);
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/")
     public List<Position> deletePositions() {
         return positionService.deleteAll();
@@ -36,11 +39,13 @@ public class PositionRestController {
         return positionService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public List<Position> deletePosition(@PathVariable int id) {
         return positionService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public List<Position> updatePosition(@PathVariable int id, @RequestBody Position position) throws EntityNotFoundException {
         if(positionService.getById(id) == null)

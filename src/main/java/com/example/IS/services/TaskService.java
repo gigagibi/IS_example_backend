@@ -59,4 +59,6 @@ public interface TaskService {
     List<Task> getAllByTaskTypeId(int taskTypeId);
 
     List<Task> getAllByTaskType(String taskType);
+
+    Task closeTask(int taskId);
 }

@@ -53,4 +53,8 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @Modifying
     @Query(value = "update Task set name = ?2, description = ?3, startDate = ?4, finishDate = ?5, project = ?6, user = ?7 where taskId = ?1")
     void updateTask(int id, String name, String description, Date startDate, Date finishDate, Project project, User user);
+
+    @Modifying
+    @Query(value = "update Task set finishDate = ?2 where taskId = ?1")
+    void changeTaskFinishDate(int id, Date finishDate);
 }

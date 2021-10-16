@@ -3,7 +3,9 @@ package com.example.IS.rest;
 
 import com.example.IS.models.Task;
 import com.example.IS.serviceImpl.repoImpl.TaskServiceRepoImpl;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +21,13 @@ public class TaskRestController {
         return taskService.getAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public List<Task> createTask(@RequestBody Task task) {
         return taskService.create(task);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/")
     public List<Task> deleteTasks() {
         return taskService.deleteAll();
@@ -34,11 +38,13 @@ public class TaskRestController {
         return taskService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public List<Task> updateTask(@PathVariable int id, @RequestBody Task task) {
         return taskService.update(id, task);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public List<Task> deleteTask(int id) {
         return taskService.delete(id);
@@ -53,4 +59,7 @@ public class TaskRestController {
     public List<Task> getTasksByProjectId(int projectId) {
         return taskService.getAllByProjectId(projectId);
     }
+
+    @PatchMapping("/{id}/close")
+    public Task closeTask(@PathVariable int id) {return taskService.closeTask(id);}
 }
