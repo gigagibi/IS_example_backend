@@ -4,6 +4,7 @@ import com.example.IS.models.TimeEntry;
 import com.example.IS.serviceImpl.repoImpl.TaskTypeServiceRepoImpl;
 import com.example.IS.serviceImpl.repoImpl.TimeEntryServiceRepoImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
@@ -50,6 +51,7 @@ public class TimeEntryRestController {
         return timeEntryService.update(id, timeEntry);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/entry/between")
     public List<TimeEntry> getUsersEntriesBetween(@RequestParam int userId, @RequestParam OffsetDateTime min, @RequestParam OffsetDateTime max) {
         return timeEntryService.getUsersByEntryDateBetween(userId, min, max);

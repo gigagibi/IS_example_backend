@@ -16,6 +16,7 @@ import java.util.List;
 public class TaskRestController {
     private final TaskServiceRepoImpl taskService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/")
     public List<Task> getTasks() {
         return taskService.getAll();
@@ -33,6 +34,7 @@ public class TaskRestController {
         return taskService.deleteAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public Task getTask(@PathVariable int id) {
         return taskService.getById(id);
@@ -55,6 +57,7 @@ public class TaskRestController {
         return taskService.getAllByUserId(userId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/project")
     public List<Task> getTasksByProjectId(int projectId) {
         return taskService.getAllByProjectId(projectId);

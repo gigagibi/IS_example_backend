@@ -4,6 +4,7 @@ import com.example.IS.exceptions.EntityNotFoundException;
 import com.example.IS.models.Department;
 import com.example.IS.serviceImpl.repoImpl.DepartmentServiceRepoImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class DepartmentRestController {
         return departmentService.getAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/")
     public List<Department> deleteDepartments() {
         return departmentService.deleteAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public List<Department> createDepartment(@RequestBody Department department) {
         return departmentService.create(department);
@@ -34,6 +37,7 @@ public class DepartmentRestController {
         return departmentService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public List<Department> deleteDepartment(@PathVariable int id) throws EntityNotFoundException {
         if(departmentService.getById(id) == null)
@@ -42,6 +46,7 @@ public class DepartmentRestController {
             return departmentService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public List<Department> updateDepartment(@PathVariable int id, @RequestBody Department department) throws EntityNotFoundException  {
         if(departmentService.getById(id) == null)
