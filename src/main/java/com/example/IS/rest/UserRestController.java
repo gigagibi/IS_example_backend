@@ -14,6 +14,16 @@ import java.util.List;
 public class UserRestController {
     private final UserServiceRepoImpl userService;
 
+    @GetMapping("/{login}")
+    public User getByLogin(@PathVariable String login) {
+        return userService.getByLogin(login);
+    }
+
+    @GetMapping("/{login}/name")
+    public String getNameByLogin(@PathVariable String login) {
+        return userService.getByLogin(login).getName();
+    }
+
     @GetMapping("/")
     public List<User> getUsers() {
         return userService.getAll();
@@ -37,7 +47,7 @@ public class UserRestController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id|")
+    @DeleteMapping("/{id}")
     public List<User> deleteUser(@PathVariable int id) {
         return userService.delete(id);
     }
@@ -56,5 +66,10 @@ public class UserRestController {
     @GetMapping("/position")
     public List<User> getUsersByPositionId(@RequestParam int positionId) {
         return userService.getAllByPositionId(positionId);
+    }
+
+    @GetMapping("/{login}/role")
+    public String getRoleByLogin(@PathVariable String login) {
+        return userService.getByLogin(login).getRole();
     }
 }

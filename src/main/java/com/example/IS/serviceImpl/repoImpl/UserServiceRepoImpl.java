@@ -178,4 +178,9 @@ public class UserServiceRepoImpl implements UserService {
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
+    @Override
+    public String getRoleByUserId(int userId) {
+        return userRepository.findByUserId(userId).getRole();
+    }
 }

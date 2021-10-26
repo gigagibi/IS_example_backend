@@ -1,6 +1,7 @@
 package com.example.IS.rest;
 
 import com.example.IS.models.AuthRequest;
+import com.example.IS.models.AuthResponse;
 import com.example.IS.models.User;
 import com.example.IS.security.JwtProvider;
 import com.example.IS.serviceImpl.repoImpl.UserServiceRepoImpl;
@@ -29,13 +30,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String auth(@RequestBody AuthRequest authRequest) {
+    public AuthResponse auth(@RequestBody AuthRequest authRequest) {
+        AuthResponse response = new AuthResponse();
         String login = authRequest.getLogin();
         String password = authRequest.getPassword();
         User user = userService.getByLogin(login);
-        if(user != null && BCrypt.checkpw(password, user.getPassword()))
-            return jwtProvider.generateToken(login);
+        if(user != null && BCrypt.checkpw(password, user.getPassword())) {
+            response.setToken(jwtProvider.generateToken(login));
+            response.setRole(user.getRole());
+        }
         else
-            return "User not found";
+            response.setToken("User not found");
+        return response;
     }
 }

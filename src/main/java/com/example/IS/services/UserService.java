@@ -68,5 +68,7 @@ public interface UserService {
      List<User> deleteAll();
 
      User getByLogin(String login);
+
+     String getRoleByUserId(int userId);
 }
 
