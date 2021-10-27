@@ -14,19 +14,14 @@ import java.util.List;
 public class UserRestController {
     private final UserServiceRepoImpl userService;
 
-    @GetMapping("/{login}")
-    public User getByLogin(@PathVariable String login) {
-        return userService.getByLogin(login);
-    }
-
     @GetMapping("/{login}/name")
     public String getNameByLogin(@PathVariable String login) {
         return userService.getByLogin(login).getName();
     }
 
     @GetMapping("/")
-    public List<User> getUsers() {
-        return userService.getAll();
+    public List<User> getByInitials(@RequestParam(required = false) String name, @RequestParam(required = false) String surname, @RequestParam(required = false) String patronym) {
+        return userService.getAllByInitials(name,surname,patronym);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

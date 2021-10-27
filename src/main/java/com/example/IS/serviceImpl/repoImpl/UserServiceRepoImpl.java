@@ -32,6 +32,18 @@ public class UserServiceRepoImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllByInitials(String name, String surname, String patronym) {
+        List<User> users = userRepository.findAll();
+        if(surname!= null && !surname.equals(""))
+            users = users.stream().filter(e -> e.getSurname().equals(surname)).collect(Collectors.toList());
+        if(name!= null && !name.equals(""))
+            users = users.stream().filter(e -> e.getName().equals(name)).collect(Collectors.toList());
+        if(patronym!= null && !patronym.equals(""))
+            users = users.stream().filter(e -> e.getPatronym().equals(patronym)).collect(Collectors.toList());
+        return users;
+    }
+
+    @Override
     public List<User> create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveAndFlush(user);
