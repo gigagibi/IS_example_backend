@@ -41,4 +41,6 @@ public interface TimeEntryService {
     List<TimeEntry> getAllByEntryDateBetween(OffsetDateTime min, OffsetDateTime max);
 
     List<TimeEntry> getAllByUserToken(String token);
+
+    List<TimeEntry> getAllByTokenAndTaskId(String token, int taskId);
 }

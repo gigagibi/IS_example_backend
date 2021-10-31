@@ -43,12 +43,19 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     }
 
     @Override
+    public List<TimeEntry> getAllByTokenAndTaskId(String token, int taskId) {
+        User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
+        return timeEntryRepository.getTimeEntryByUserIdAndTaskId(user.getUserId(), taskId);
+    }
+
+    @Override
     public List<TimeEntry> create(String token, TimeEntry timeEntry) throws UserAndTimeEntryNotMatchException {
         User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
         Task task = taskRepository.findByTaskId(timeEntry.getTask().getTaskId());
         if(task.getUser().getUserId() == user.getUserId() || user.getRole().equals("ROLE_ADMIN")) {
             timeEntryRepository.saveAndFlush(timeEntry);
-            return timeEntryRepository.findAll().stream().filter(e -> e.getTask().getUser()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
+//            return timeEntryRepository.findAll().stream().filter(e -> e.getTask().getUser()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
+            return timeEntryRepository.getTimeEntryByUserIdAndTaskId(user.getUserId(), task.getTaskId());
         }
         else
             throw new UserAndTimeEntryNotMatchException();
@@ -66,10 +73,10 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
 
     @Override
     public TimeEntry update(String token, int timeEntryId, TimeEntry newTimeEntry) throws UserAndTimeEntryNotMatchException {
-        TimeEntry oldTimeEntry = timeEntryRepository.findByTimeEntryId(timeEntryId);
+//        TimeEntry oldTimeEntry = timeEntryRepository.findByTimeEntryId(timeEntryId);
         if(checkTimeEntryAndToken(token, timeEntryId)) {
-            timeEntryRepository.updateTimeEntry(timeEntryId, oldTimeEntry.getTask(), newTimeEntry.getHours(), newTimeEntry.getEntryDate());
-            return timeEntryRepository.getById(timeEntryId);
+            timeEntryRepository.updateTimeEntry(timeEntryId, newTimeEntry.getTask(), newTimeEntry.getHours(), newTimeEntry.getEntryDate());
+            return timeEntryRepository.findByTimeEntryId(timeEntryId);
         }
         else
             throw new UserAndTimeEntryNotMatchException();
@@ -128,6 +135,6 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
 
     @Override
     public List<TimeEntry> getAllByUserToken(String token) {
-        return timeEntryRepository.findAll().stream().filter(e -> e.getTask().getUser()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
+        return timeEntryRepository.findAll().stream().filter(e -> e.getTask()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
     }
 }

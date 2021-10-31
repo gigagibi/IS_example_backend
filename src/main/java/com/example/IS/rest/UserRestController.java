@@ -14,11 +14,13 @@ import java.util.List;
 public class UserRestController {
     private final UserServiceRepoImpl userService;
 
-    @GetMapping("/{login}/name")
-    public String getNameByLogin(@PathVariable String login) {
-        return userService.getByLogin(login).getName();
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/token/name")
+    public String getNameByToken(@RequestHeader("Authorization") String token) {
+        return userService.getByToken(token.substring(7)).getName();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/")
     public List<User> getByInitials(@RequestParam(required = false) String name, @RequestParam(required = false) String surname, @RequestParam(required = false) String patronym) {
         return userService.getAllByInitials(name,surname,patronym);
@@ -53,18 +55,33 @@ public class UserRestController {
         return userService.update(id, user);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/department")
     public List<User> getUsersByDepartmentId(@RequestParam int departmentId) {
         return userService.getAllByDepartmentId(departmentId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/position")
     public List<User> getUsersByPositionId(@RequestParam int positionId) {
         return userService.getAllByPositionId(positionId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{login}/role")
     public String getRoleByLogin(@PathVariable String login) {
         return userService.getByLogin(login).getRole();
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/token/role")
+    public String getRoleByToken(@RequestHeader("Authorization") String token) {
+        return userService.getByToken(token.substring(7)).getRole();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAll();
     }
 }

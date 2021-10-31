@@ -1,5 +1,6 @@
 package com.example.IS.rest;
 
+import com.example.IS.models.Task;
 import com.example.IS.models.TaskType;
 import com.example.IS.models.TaskType;
 import com.example.IS.serviceImpl.repoImpl.TaskTypeServiceRepoImpl;
@@ -15,6 +16,7 @@ import java.util.List;
 public class TaskTypeRestController {
     private final TaskTypeServiceRepoImpl taskTypeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/")
     public List<TaskType> getTaskTypes() {
         return taskTypeService.getAll();
@@ -32,6 +34,7 @@ public class TaskTypeRestController {
         return taskTypeService.deleteAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public TaskType getTaskType(@PathVariable int id) {
         return taskTypeService.getById(id);
@@ -47,5 +50,10 @@ public class TaskTypeRestController {
     @DeleteMapping("/{id}")
     public List<TaskType> deleteTaskType(@PathVariable int id) {
         return taskTypeService.delete(id);
+    }
+
+    @GetMapping("/{taskId}")
+    public TaskType getTypeByTaskId(@PathVariable int taskId) {
+        return null;
     }
 }

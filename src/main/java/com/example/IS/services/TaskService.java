@@ -1,5 +1,6 @@
 package com.example.IS.services;
 
+import com.example.IS.exceptions.UserAndTaskNotMatchException;
 import com.example.IS.models.Project;
 import com.example.IS.models.Task;
 import com.example.IS.models.User;
@@ -60,5 +61,9 @@ public interface TaskService {
 
     List<Task> getAllByTaskType(String taskType);
 
-    Task closeTask(int taskId);
+    Task closeTask(String token, int taskId) throws UserAndTaskNotMatchException;
+
+    boolean checkUserAndTask(String token, int taskId);
+
+    List<Task> getTasksByToken(String token);
 }

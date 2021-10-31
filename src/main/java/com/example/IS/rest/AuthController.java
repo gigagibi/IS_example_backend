@@ -6,9 +6,8 @@ import com.example.IS.models.RegisterRequest;
 import com.example.IS.models.User;
 import com.example.IS.security.JwtProvider;
 import com.example.IS.serviceImpl.repoImpl.UserServiceRepoImpl;
-import com.example.IS.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +20,7 @@ public class AuthController {
     @Autowired
     private JwtProvider jwtProvider;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register")
     public String registerUser(@RequestBody RegisterRequest request) {
         User user = new User();

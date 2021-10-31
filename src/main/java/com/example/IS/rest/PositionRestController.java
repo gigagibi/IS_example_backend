@@ -16,6 +16,7 @@ import java.util.List;
 public class PositionRestController {
     private final PositionServiceRepoImpl positionService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/")
     public List<Position> getPositions() {
         return positionService.getAll();
@@ -34,6 +35,7 @@ public class PositionRestController {
         return positionService.deleteAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public Position getPosition(@PathVariable int id) {
         return positionService.getById(id);
@@ -54,16 +56,19 @@ public class PositionRestController {
             return positionService.update(id, position);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/name")
     public Position getPositionByName(@RequestParam String name) {
         return positionService.getByName(name);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/grade")
     public List<Position> getPositionsByGrade(@RequestParam int grade) {
         return positionService.getAllByGrade(grade);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user")
     public Position getPositionByUserId(@RequestParam int userId) {
         return positionService.getByUserId(userId);
