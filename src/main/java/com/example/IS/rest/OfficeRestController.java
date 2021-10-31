@@ -16,6 +16,7 @@ import java.util.List;
 public class OfficeRestController {
     private final OfficeServiceRepoImpl officeService;
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/")
     public List<Office> getOffices() {
         return officeService.getAll();
@@ -27,6 +28,7 @@ public class OfficeRestController {
         return officeService.create(office);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public Office getOffice(@PathVariable int id) {
         return officeService.getById(id);
@@ -58,6 +60,7 @@ public class OfficeRestController {
     }
 
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/address")
     public Office getOfficeByAddress(@RequestParam String address) {
         return officeService.getOfficeByAddress(address);

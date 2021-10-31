@@ -1,9 +1,12 @@
 package com.example.IS.serviceImpl.repoImpl;
 
+import com.example.IS.exceptions.UserAndTaskNotMatchException;
 import com.example.IS.models.Project;
 import com.example.IS.models.Task;
 import com.example.IS.models.User;
 import com.example.IS.repositories.TaskRepository;
+import com.example.IS.repositories.UserRepository;
+import com.example.IS.security.JwtProvider;
 import com.example.IS.services.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,15 @@ import java.util.stream.Collectors;
 @Transactional
 public class TaskServiceRepoImpl implements TaskService {
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
+
+    public boolean checkUserAndTask(String token, int taskId) {
+        User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
+        Task task = taskRepository.findByTaskId(taskId);
+        return (task.getUser().getUserId() == user.getUserId() || user.getRole().equals("ROLE_ADMIN"));
+    }
+
     @Override
     public Task getById(int taskId) {
         return taskRepository.findByTaskId(taskId);
@@ -149,8 +161,17 @@ public class TaskServiceRepoImpl implements TaskService {
     }
 
     @Override
-    public Task closeTask(int taskId) {
-        taskRepository.changeTaskFinishDate(taskId, java.sql.Date.valueOf(LocalDate.now()));
-        return taskRepository.getById(taskId);
+    public Task closeTask(String token, int taskId) throws UserAndTaskNotMatchException {
+        if(checkUserAndTask(token, taskId)) {
+            taskRepository.changeTaskFinishDate(taskId, java.sql.Date.valueOf(LocalDate.now()));
+            return taskRepository.getById(taskId);
+        }
+        else
+            throw new UserAndTaskNotMatchException();
+    }
+
+    @Override
+    public List<Task> getTasksByToken(String token) {
+        return taskRepository.findAllByUser(userRepository.findByLogin(jwtProvider.getLoginFromToken(token)));
     }
 }

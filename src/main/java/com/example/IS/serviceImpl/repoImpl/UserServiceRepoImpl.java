@@ -4,6 +4,7 @@ import com.example.IS.models.Department;
 import com.example.IS.models.Position;
 import com.example.IS.models.User;
 import com.example.IS.repositories.UserRepository;
+import com.example.IS.security.JwtProvider;
 import com.example.IS.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -189,6 +191,11 @@ public class UserServiceRepoImpl implements UserService {
     @Override
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    @Override
+    public User getByToken(String token) {
+        return userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
     }
 
     @Override

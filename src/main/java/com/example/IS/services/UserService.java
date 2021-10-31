@@ -72,5 +72,7 @@ public interface UserService {
      User getByLogin(String login);
 
      String getRoleByUserId(int userId);
+
+     User getByToken(String token);
 }
 

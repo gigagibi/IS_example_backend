@@ -15,6 +15,7 @@ import java.util.List;
 public class DepartmentRestController {
     private final DepartmentServiceRepoImpl departmentService;
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/")
     public List<Department> getDepartments() {
         return departmentService.getAll();
@@ -32,6 +33,7 @@ public class DepartmentRestController {
         return departmentService.create(department);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public Department getDepartment(@PathVariable int id) {
         return departmentService.getById(id);
@@ -57,11 +59,13 @@ public class DepartmentRestController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/name")
     public List<Department> getDepartmentsByName(@RequestParam String name) {
         return departmentService.getAllByName(name);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/office")
     public List<Department> getDepartmentsByOfficeId(@RequestParam int officeId) {
         return departmentService.getAllByOfficeId(officeId);

@@ -15,6 +15,7 @@ import java.util.List;
 public class ProjectRestController {
     private ProjectServiceRepoImpl projectService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/")
     public List<Project> getProjects() {
         return projectService.getAll();
@@ -32,6 +33,7 @@ public class ProjectRestController {
         return projectService.deleteAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public Project getProject(@PathVariable int id) {
         return projectService.getById(id);
@@ -49,16 +51,19 @@ public class ProjectRestController {
         return projectService.update(id, project);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user")
     public List<Project> getProjectsByUserId(@RequestParam int userId) {
         return projectService.getProjectsByUserId(userId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/project_manager")
-    public List<Project> getProjectsByPMId(@RequestParam int PMId) {
-        return projectService.getProjectsByPMId(PMId);
+    public List<Project> getProjectsByPMId(@RequestHeader("Authorization") String token) {
+        return projectService.getProjectsByPMId(token.substring(7));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/task")
     public Project getProjectByTaskId(int taskId) {
         return projectService.getProjectByTaskId(taskId);

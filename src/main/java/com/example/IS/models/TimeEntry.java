@@ -15,7 +15,6 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TimeEntry {
     @Id
     @SequenceGenerator(name = "time_entry_seq", sequenceName =

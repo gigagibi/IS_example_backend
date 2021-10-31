@@ -6,6 +6,7 @@ import com.example.IS.models.User;
 import com.example.IS.repositories.ProjectRepository;
 import com.example.IS.repositories.TaskRepository;
 import com.example.IS.repositories.UserRepository;
+import com.example.IS.security.JwtProvider;
 import com.example.IS.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class ProjectServiceRepoImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final JwtProvider jwtProvider;
     @Override
     public Project getById(int projectId) {
         return projectRepository.findByProjectId(projectId);
@@ -311,9 +313,10 @@ public class ProjectServiceRepoImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> getProjectsByPMId(int PMId) { //returns projects managed by certain project manager
+    public List<Project> getProjectsByPMId(String token) { //returns projects managed by certain project manager
+        User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
         List<Task> userTasks = taskRepository.findAll();
-        userTasks.removeIf(e -> (e.user.getUserId() != PMId || e.taskType.getTaskTypeId() != 1));
+        userTasks.removeIf(e -> (e.user.getUserId() != user.getUserId() || e.taskType.getTaskTypeId() != 1));
         List<Project> projects = new ArrayList<>();
         for(Task task : userTasks) {
             projects.add(task.project);

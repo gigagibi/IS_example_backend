@@ -1,9 +1,9 @@
 package com.example.IS.rest;
 
 
+import com.example.IS.exceptions.UserAndTaskNotMatchException;
 import com.example.IS.models.Task;
 import com.example.IS.serviceImpl.repoImpl.TaskServiceRepoImpl;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class TaskRestController {
     private final TaskServiceRepoImpl taskService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Task> getTasks() {
         return taskService.getAll();
     }
@@ -52,6 +52,7 @@ public class TaskRestController {
         return taskService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user")
     public List<Task> getTasksByUserId(@RequestParam int userId) {
         return taskService.getAllByUserId(userId);
@@ -63,6 +64,16 @@ public class TaskRestController {
         return taskService.getAllByProjectId(projectId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/")
+    public List<Task> getTasksByToken(@RequestHeader("Authorization") String token) {
+        return taskService.getTasksByToken(token.substring(7));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PatchMapping("/{id}/close")
-    public Task closeTask(@PathVariable int id) {return taskService.closeTask(id);}
+    public Task closeTask(@RequestHeader("Authorization") String token, @PathVariable int id) throws UserAndTaskNotMatchException {
+        token=token.substring(7);
+        return taskService.closeTask(token, id);
+    }
 }

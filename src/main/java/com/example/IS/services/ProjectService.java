@@ -118,7 +118,7 @@ public interface ProjectService {
 
     List<Project> getProjectsByUserId(int userId);
 
-    List<Project> getProjectsByPMId(int PMId);
+    List<Project> getProjectsByPMId(String token);
 
     Project getProjectByTaskId(int taskId);
 }
