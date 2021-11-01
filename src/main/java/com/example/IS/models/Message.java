@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "messages")
@@ -14,9 +15,9 @@ import javax.validation.constraints.Size;
 @ToString
 public class Message {
     @Id
-    @SequenceGenerator(name = "office_seq", sequenceName =
-            "office_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "office_seq", strategy =
+    @SequenceGenerator(name = "message_seq", sequenceName =
+            "message_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "message_seq", strategy =
             GenerationType.SEQUENCE)
     @Column(name = "message_id")
     private int messageId;
@@ -31,4 +32,10 @@ public class Message {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "time")
+    private OffsetDateTime time;
+
+    @Column(name = "is_saw")
+    private boolean isSaw;
 }

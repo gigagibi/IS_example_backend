@@ -73,7 +73,6 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
 
     @Override
     public TimeEntry update(String token, int timeEntryId, TimeEntry newTimeEntry) throws UserAndTimeEntryNotMatchException {
-//        TimeEntry oldTimeEntry = timeEntryRepository.findByTimeEntryId(timeEntryId);
         if(checkTimeEntryAndToken(token, timeEntryId)) {
             timeEntryRepository.updateTimeEntry(timeEntryId, newTimeEntry.getTask(), newTimeEntry.getHours(), newTimeEntry.getEntryDate());
             return timeEntryRepository.findByTimeEntryId(timeEntryId);
@@ -114,7 +113,7 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     }
 
     @Override
-    public List<TimeEntry> getUsersByEntryDateBetween(String token, OffsetDateTime min, OffsetDateTime max) throws UserAndTimeEntryNotMatchException {
+    public List<TimeEntry> getUsersByEntryDateBetween(String token, OffsetDateTime min, OffsetDateTime max) {
         return timeEntryRepository.findAllByEntryDateBetween(min, max).stream().filter(e -> e.getTask().getUser()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
     }
 

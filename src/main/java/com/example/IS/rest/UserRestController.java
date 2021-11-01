@@ -84,4 +84,10 @@ public class UserRestController {
     public List<User> getAllUsers() {
         return userService.getAll();
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/messaged")
+    public List<User> getMessagedUsers(@RequestHeader("Authorization") String token) {
+        return userService.getMessagedUsers(token.substring(7));
+    }
 }

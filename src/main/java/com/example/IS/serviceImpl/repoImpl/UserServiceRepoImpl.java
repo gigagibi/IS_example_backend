@@ -1,8 +1,10 @@
 package com.example.IS.serviceImpl.repoImpl;
 
 import com.example.IS.models.Department;
+import com.example.IS.models.Message;
 import com.example.IS.models.Position;
 import com.example.IS.models.User;
+import com.example.IS.repositories.MessageRepository;
 import com.example.IS.repositories.UserRepository;
 import com.example.IS.security.JwtProvider;
 import com.example.IS.services.UserService;
@@ -18,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
+    private final MessageRepository messageRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -186,6 +190,12 @@ public class UserServiceRepoImpl implements UserService {
     @Override
     public List<User> deleteAll() {
         return null;
+    }
+
+    @Override
+    public List<User> getMessagedUsers(String token) {
+        User me = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
+        return userRepository.findAll().stream().filter(e -> (messageRepository.findAllByReceiverAndSender(e, me).size()!=0 || messageRepository.findAllByReceiverAndSender(me, e).size()!=0)).collect(Collectors.toList());
     }
 
     @Override

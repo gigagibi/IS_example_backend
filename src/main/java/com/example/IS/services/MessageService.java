@@ -11,4 +11,8 @@ public interface MessageService {
     List<Message> getMessagesByReceiverToken(String token);
 
     List<Message> create(String token, Message message);
+
+    List<Message> getMessagesByReceiverTokenAndSender(String token, User sender);
+
+    List<Message> getMessagesBySenderTokenAndReceiver(String token, User receiver);
 }

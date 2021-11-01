@@ -74,5 +74,7 @@ public interface UserService {
      String getRoleByUserId(int userId);
 
      User getByToken(String token);
+
+     List<User> getMessagedUsers(String token);
 }
 
