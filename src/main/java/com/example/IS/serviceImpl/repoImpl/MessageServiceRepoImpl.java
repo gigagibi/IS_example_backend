@@ -6,9 +6,15 @@ import com.example.IS.repositories.MessageRepository;
 import com.example.IS.repositories.UserRepository;
 import com.example.IS.security.JwtProvider;
 import com.example.IS.services.MessageService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
+@Transactional
 public class MessageServiceRepoImpl implements MessageService {
     private MessageRepository messageRepository;
     private UserRepository userRepository;

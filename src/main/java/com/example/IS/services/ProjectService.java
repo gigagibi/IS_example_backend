@@ -1,8 +1,6 @@
 package com.example.IS.services;
 
-import com.example.IS.models.Department;
 import com.example.IS.models.Project;
-import com.example.IS.models.User;
 
 import java.util.Date;
 import java.util.List;
