@@ -31,7 +31,7 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     public boolean checkTimeEntryAndToken(String token, int timeEntryId) {
         TimeEntry timeEntry = timeEntryRepository.findByTimeEntryId(timeEntryId);
         User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
-        return (timeEntry.getTask().getUser().getUserId() == user.getUserId() || user.getRole().equals("ROLE_ADMIN"));
+        return (timeEntry.getTask().getUser().getUserId() == user.getUserId() || user.getRole().getName().equals("ROLE_ADMIN"));
     }
 
     @Override
@@ -52,9 +52,8 @@ public class TimeEntryServiceRepoImpl implements TimeEntryService {
     public List<TimeEntry> create(String token, TimeEntry timeEntry) throws UserAndTimeEntryNotMatchException {
         User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
         Task task = taskRepository.findByTaskId(timeEntry.getTask().getTaskId());
-        if(task.getUser().getUserId() == user.getUserId() || user.getRole().equals("ROLE_ADMIN")) {
+        if(task.getUser().getUserId() == user.getUserId() || user.getRole().getName().equals("ROLE_ADMIN")) {
             timeEntryRepository.saveAndFlush(timeEntry);
-//            return timeEntryRepository.findAll().stream().filter(e -> e.getTask().getUser()!=null && e.getTask().getUser().getLogin().equals(jwtProvider.getLoginFromToken(token))).collect(Collectors.toList());
             return timeEntryRepository.getTimeEntryByUserIdAndTaskId(user.getUserId(), task.getTaskId());
         }
         else

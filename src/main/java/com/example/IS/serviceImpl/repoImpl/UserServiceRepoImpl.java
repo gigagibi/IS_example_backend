@@ -1,10 +1,8 @@
 package com.example.IS.serviceImpl.repoImpl;
 
-import com.example.IS.models.Department;
-import com.example.IS.models.Message;
-import com.example.IS.models.Position;
-import com.example.IS.models.User;
+import com.example.IS.models.*;
 import com.example.IS.repositories.MessageRepository;
+import com.example.IS.repositories.RoleRepository;
 import com.example.IS.repositories.UserRepository;
 import com.example.IS.security.JwtProvider;
 import com.example.IS.services.UserService;
@@ -17,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +28,7 @@ public class UserServiceRepoImpl implements UserService {
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
     private final MessageRepository messageRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -199,6 +199,11 @@ public class UserServiceRepoImpl implements UserService {
     }
 
     @Override
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
+    }
+
+    @Override
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
     }
@@ -210,6 +215,6 @@ public class UserServiceRepoImpl implements UserService {
 
     @Override
     public String getRoleByUserId(int userId) {
-        return userRepository.findByUserId(userId).getRole();
+        return userRepository.findByUserId(userId).getRole().getName();
     }
 }

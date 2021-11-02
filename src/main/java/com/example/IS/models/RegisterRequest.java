@@ -33,7 +33,7 @@ public class RegisterRequest {
 
     public Position position;
 
-    private String role;
+    private Role role;
 
     private String login;
 

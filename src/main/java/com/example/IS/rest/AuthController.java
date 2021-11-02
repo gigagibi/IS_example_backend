@@ -46,7 +46,7 @@ public class AuthController {
         User user = userService.getByLogin(login);
         if(user != null && BCrypt.checkpw(password, user.getPassword())) {
             response.setToken(jwtProvider.generateToken(login));
-            response.setRole(user.getRole());
+            response.setRole(user.getRole().getName());
         }
         else
             response.setToken("User not found");

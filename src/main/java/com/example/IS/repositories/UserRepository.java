@@ -2,6 +2,7 @@ package com.example.IS.repositories;
 
 import com.example.IS.models.Department;
 import com.example.IS.models.Position;
+import com.example.IS.models.Role;
 import com.example.IS.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -61,6 +62,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByDepartment(Department department);
 
     List<User> findAllByPosition (Position position);
+
+    List<User> findAllByRole(Role role);
 
 //    @Modifying
 //    @Query(value = "update users set surname = ?2, name = ?3, patronym = ?4, hire_date = ?5, dismissal_date = ?6, email = ?7, position_id = ?8, department_id = ?9 where user_id= ?1", nativeQuery = true)

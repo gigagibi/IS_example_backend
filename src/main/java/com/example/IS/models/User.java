@@ -48,9 +48,9 @@ public class User {
     @JoinColumn(name = "position_id", referencedColumnName = "pos_id")
     public Position position;
 
-    @JsonIgnore
-    @Column(name = "role")
-    private String role;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    public Role role;
 
     @JsonIgnore
     @Column(name = "login")

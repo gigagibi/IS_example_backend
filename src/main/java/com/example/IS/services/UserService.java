@@ -1,9 +1,6 @@
 package com.example.IS.services;
 
-import com.example.IS.models.Department;
-import com.example.IS.models.Position;
-import com.example.IS.models.TimeEntry;
-import com.example.IS.models.User;
+import com.example.IS.models.*;
 
 import java.util.Date;
 import java.util.List;
@@ -76,5 +73,7 @@ public interface UserService {
      User getByToken(String token);
 
      List<User> getMessagedUsers(String token);
+
+     List<Role> getRoles();
 }
 

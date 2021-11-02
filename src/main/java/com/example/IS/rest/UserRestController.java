@@ -1,5 +1,6 @@
 package com.example.IS.rest;
 
+import com.example.IS.models.Role;
 import com.example.IS.models.User;
 import com.example.IS.serviceImpl.repoImpl.UserServiceRepoImpl;
 import lombok.AllArgsConstructor;
@@ -68,18 +69,12 @@ public class UserRestController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping("/{login}/role")
-    public String getRoleByLogin(@PathVariable String login) {
-        return userService.getByLogin(login).getRole();
+    @GetMapping("/token/role")
+    public String getRoleByToken(@RequestHeader("Authorization") String token) {
+        return userService.getByToken(token.substring(7)).getRole().getName();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping("/token/role")
-    public String getRoleByToken(@RequestHeader("Authorization") String token) {
-        return userService.getByToken(token.substring(7)).getRole();
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<User> getAllUsers() {
         return userService.getAll();
@@ -89,5 +84,11 @@ public class UserRestController {
     @GetMapping("/messaged")
     public List<User> getMessagedUsers(@RequestHeader("Authorization") String token) {
         return userService.getMessagedUsers(token.substring(7));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/role/all")
+    public List<Role> getAllRoles() {
+        return userService.getRoles();
     }
 }

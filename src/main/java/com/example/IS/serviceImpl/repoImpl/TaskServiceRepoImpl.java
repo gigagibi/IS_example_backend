@@ -28,7 +28,7 @@ public class TaskServiceRepoImpl implements TaskService {
     public boolean checkUserAndTask(String token, int taskId) {
         User user = userRepository.findByLogin(jwtProvider.getLoginFromToken(token));
         Task task = taskRepository.findByTaskId(taskId);
-        return (task.getUser().getUserId() == user.getUserId() || user.getRole().equals("ROLE_ADMIN"));
+        return (task.getUser().getUserId() == user.getUserId() || user.getRole().getName().equals("ROLE_ADMIN"));
     }
 
     @Override
