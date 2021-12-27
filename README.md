@@ -1,5 +1,6 @@
 # BACKEND IS
 Backend part of IS_EXAMPLE project. The project is an example of system for employees communication and work organization. This system allows to read and write messages, watch company's departments and offices, search info about employees, close tasks and etc.
+**Frontend part (client's interface):** https://github.com/gigagibi/IS_example_frontend
 ## Tech stack
 - Java
 - Spring Boot
@@ -16,8 +17,11 @@ Backend part of IS_EXAMPLE project. The project is an example of system for empl
 ## How to run JAR file
 Write the following in command line:
 ```bash
-java -jar <jar_direction>
+java -jar <jar_direction>/IS-0.0.1-SNAPSHOT.jar
 ```
+## Database Scheme
+![Физ схема](https://user-images.githubusercontent.com/70891118/147501487-4e89bfed-db27-4cd9-9c09-1498a794652b.png)
+
 ## API
 Swagger UI is available at the url: [localhost:88/swagger-ui/](localhost:88/swagger-ui/)
 ![image](https://user-images.githubusercontent.com/70891118/147486932-ae4da2c2-2813-4b8f-929e-94b9bb58eba7.png)
