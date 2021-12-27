@@ -21,14 +21,14 @@ public class SwaggerConfiguration {
     @Bean
     public Docket swaggerSpringfoxDocket() {
         Contact contact = new Contact(
-                "Mirea Test Web-service",
+                "Mirea Student",
                 "",
                 "chel@gmail.com");
 
         List<VendorExtension> vext = new ArrayList<>();
         ApiInfo apiInfo = new ApiInfo(
-                "Mirea Backend Team",
-                "Test project for introduction",
+                "Mirea Student",
+                "Backend part of IS project",
                 "1.0",
                 "...",
                 contact,
