@@ -22,7 +22,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.example.IS.repositories")
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, SwaggerConfiguration.class})
 public class ISConfiguration implements WebMvcConfigurer{
     @Value("${spring.datasource.url}")
     private String url;
