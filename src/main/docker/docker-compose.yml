@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  is_backend:
+    container_name: is_backend
+    build: ./is_backend/
+    ports:
+      - "88:88"
+    links:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/IS
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    restart: on-failure
+  db:
+#    build: ./db/
+    image: postgres:13.5
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=IS
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/postgres_data:/var/lib/postgresql/data

@@ -14,16 +14,28 @@ Backend part of IS_EXAMPLE project. The project is an example of system for empl
 
 **IDE**
 - Intelij IDEA
-## How to run JAR file
-Write the following in command line:
+## Run JAR file
+Write the following in command line from project's root directory:
 ```bash
-java -jar <jar_direction>/IS-0.0.1-SNAPSHOT.jar
+java -DSPRING_DATASOURCE_URL="url" -DSPRING_DATASOURCE_USERNAME="username" -DSPRING_DATASOURCE_PASSWORD="password" -jar src/main/docker/is_backend/IS-0.0.1-SNAPSHOT.jar
 ```
+
+## Run with docker-compose
+In src/main/docker directory:
+```bash
+docker-compose up
+```
+## Default admin user
+Login: ```admin```
+Password: ```admin```
+
+Bearer token for swagger: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0MjU1MDQwMH0.URRA6imfDdHJDVx_sOSZUTPZSPIIG_6j03zEGTXp92U4BfSVl8DXyhczHV3CwNr0HVpvnKwooWg_hF9X7LU3aA" (paste with "Bearer " word)
+
 ## Database Scheme
 ![Физ схема](https://user-images.githubusercontent.com/70891118/147501487-4e89bfed-db27-4cd9-9c09-1498a794652b.png)
 
 ## API
-Swagger UI is available at the url: [localhost:88/swagger-ui/](localhost:88/swagger-ui/)
+Swagger UI is available at the url: http://localhost:88/swagger-ui/
 ![image](https://user-images.githubusercontent.com/70891118/147486932-ae4da2c2-2813-4b8f-929e-94b9bb58eba7.png)
 ![image](https://user-images.githubusercontent.com/70891118/147486937-33fda1b8-0d70-4fb3-9846-c156bf61a56c.png)
 ![image](https://user-images.githubusercontent.com/70891118/147486942-ac0b8149-e402-4acb-ba76-1c7bfe90e267.png)
