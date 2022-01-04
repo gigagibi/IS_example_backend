@@ -2,6 +2,7 @@ version: '3.9'
 services:
   is_backend:
     container_name: is_backend
+    image: gigagibi/is_example_backend
     build: ./is_backend/
     ports:
       - "88:88"
@@ -13,7 +14,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=root
     restart: on-failure
   db:
-#    build: ./db/
     image: postgres:13.5
     container_name: db
     environment:
