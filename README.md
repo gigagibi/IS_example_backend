@@ -36,6 +36,7 @@ Bearer token for swagger: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4c
 
 ## API
 Swagger UI is available at the url: http://localhost:88/swagger-ui/
+(Port 88 is default)
 ![image](https://user-images.githubusercontent.com/70891118/147486932-ae4da2c2-2813-4b8f-929e-94b9bb58eba7.png)
 ![image](https://user-images.githubusercontent.com/70891118/147486937-33fda1b8-0d70-4fb3-9846-c156bf61a56c.png)
 ![image](https://user-images.githubusercontent.com/70891118/147486942-ac0b8149-e402-4acb-ba76-1c7bfe90e267.png)
